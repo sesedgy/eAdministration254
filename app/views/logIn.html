@@ -1,0 +1,13 @@
+<div class="container">
+    <form class="form-signin">
+        <h2 class="form-signin-heading">Авторизация</h2>
+        <label for="login" class="sr-only">Логин</label>
+        <input id="login" name="login" class="form-control" [(ngModel)]="login" type="text" placeholder="Логин" required autofocus>
+        <label for="password" class="sr-only">Пароль</label>
+        <input type="password" id="password" name="password" class="form-control" [(ngModel)]="password" placeholder="Пароль" required>
+        <span class="help-block" style="color:red" [hidden]="!isIncorrectLoginOrPassword">Неправильный логин или пароль</span>
+        <span class="help-block" style="color:red" [hidden]="!isWrongRights">Недостаточно прав</span>
+        <span class="help-block" style="color:red" [hidden]="!isError">Ошибка входа</span>
+        <button class="btn btn-lg btn-primary btn-block" (click)="logIn()">Войти</button>
+    </form>
+</div>
