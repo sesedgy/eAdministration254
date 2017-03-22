@@ -7,14 +7,25 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class HttpService{
 
+    constructor(private http: Http){ }
     urlServer: string = AppSettings.API_SRC;
 
-    constructor(private http: Http){ }
-
-    get(urlApi){
-        return this.http.get(this.urlServer + urlApi).map((resp:Response)=>resp.json());
+    /**
+     * Отправляет GET запрос
+     *
+     * @param {string} urlApi адрес запроса.
+     * @param {string} header запроса.
+     * @return {Observable<Response>}
+     */
+    get(urlApi, header){
+        return this.http.get(this.urlServer + urlApi, header);
     }
 
+    /**
+     * ПРОТЕСТИТЬ
+     *
+     * @param {string} tokenId.
+     */
     post(urlApi, obj){
         const body = JSON.stringify(obj);
         let headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });

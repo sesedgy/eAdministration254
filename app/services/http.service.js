@@ -31,9 +31,21 @@ System.register(['@angular/core', '@angular/http', "../appSettings", 'rxjs/add/o
                     this.http = http;
                     this.urlServer = appSettings_1.AppSettings.API_SRC;
                 }
-                HttpService.prototype.get = function (urlApi) {
-                    return this.http.get(this.urlServer + urlApi).map(function (resp) { return resp.json(); });
+                /**
+                 * Отправляет GET запрос
+                 *
+                 * @param {string} urlApi адрес запроса.
+                 * @param {string} header запроса.
+                 * @return {Observable<Response>}
+                 */
+                HttpService.prototype.get = function (urlApi, header) {
+                    return this.http.get(this.urlServer + urlApi, header);
                 };
+                /**
+                 * ПРОТЕСТИТЬ
+                 *
+                 * @param {string} tokenId.
+                 */
                 HttpService.prototype.post = function (urlApi, obj) {
                     var body = JSON.stringify(obj);
                     var headers = new http_1.Headers({ 'Content-Type': 'application/json;charset=utf-8' });

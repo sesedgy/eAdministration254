@@ -11,7 +11,7 @@ System.register(['@angular/core', '@angular/router', "../appSettings", "../servi
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, router_1, appSettings_1, user_service_1, cookie_service_1;
-    var AuthGuard;
+    var IsAuthGuard;
     return {
         setters:[
             function (core_1_1) {
@@ -30,14 +30,14 @@ System.register(['@angular/core', '@angular/router', "../appSettings", "../servi
                 cookie_service_1 = cookie_service_1_1;
             }],
         execute: function() {
-            AuthGuard = (function () {
-                function AuthGuard(cookieService, userService, router) {
+            IsAuthGuard = (function () {
+                function IsAuthGuard(cookieService, userService, router) {
                     this.cookieService = cookieService;
                     this.userService = userService;
                     this.router = router;
                     this.rightsForLogIn = appSettings_1.AppSettings.RIGHTS_FOR_LOGIN;
                 }
-                AuthGuard.prototype.canActivate = function () {
+                IsAuthGuard.prototype.canActivate = function () {
                     var _this = this;
                     var rights = "";
                     this.rightsForLogIn.forEach(function (item) {
@@ -50,22 +50,22 @@ System.register(['@angular/core', '@angular/router', "../appSettings", "../servi
                     return this.userService.checkCookie(cookie, rights).map(function (response) {
                         var responseBody = response.json();
                         if (responseBody) {
-                            return true;
+                            _this.router.navigate(['']);
+                            return false;
                         }
                         else {
-                            _this.router.navigate(['login']);
-                            return false;
+                            return true;
                         }
                     });
                 };
-                AuthGuard = __decorate([
+                IsAuthGuard = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [cookie_service_1.CookieService, user_service_1.UserService, router_1.Router])
-                ], AuthGuard);
-                return AuthGuard;
+                ], IsAuthGuard);
+                return IsAuthGuard;
             }());
-            exports_1("AuthGuard", AuthGuard);
+            exports_1("IsAuthGuard", IsAuthGuard);
         }
     }
 });
-//# sourceMappingURL=auth.guard.js.map
+//# sourceMappingURL=isAuth.guard.js.map

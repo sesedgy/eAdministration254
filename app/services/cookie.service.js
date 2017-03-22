@@ -24,33 +24,41 @@ System.register(['@angular/core', "@angular/http"], function(exports_1, context_
             CookieService = (function () {
                 function CookieService() {
                 }
+                /**
+                 * Создает Header Authorization для запроса
+                 *
+                 * @return {RequestOptions} header c Id токена.
+                 */
                 CookieService.prototype.createAuthorizationHeader = function () {
-                    var cookie = document.cookie.slice(7, 39);
-                    var headers = new http_1.Headers({ 'Authorization': cookie });
+                    var cookie = document.cookie.slice(8, 44);
+                    var headers = new http_1.Headers({ "Authorization": cookie });
                     return new http_1.RequestOptions({ headers: headers });
                 };
+                /**
+                 * Добавляет куки с tokenId сроком жизни - 1 день
+                 *
+                 * @param {string} tokenId.
+                 */
                 CookieService.prototype.setCookie = function (tokenId) {
                     //Куки действительны втечении одного дня
                     var date = new Date();
                     date.setDate(date.getDate() + 1);
-                    document.cookie = 'TokenId=' + tokenId + ';path=/;expires=' + date.toUTCString() + ';';
+                    document.cookie = "TokenId=" + tokenId + ";path=/;expires=" + date.toUTCString() + ";";
                 };
-                CookieService.prototype.updateCookie = function () {
-                    var date = new Date(0);
-                    document.cookie = "TokenId=; path=/; expires=" + date.toUTCString();
+                /**
+                 * Достает tokenId из кукисов
+                 *
+                 * @return {string} tokenId.
+                 */
+                CookieService.prototype.getTokenId = function () {
+                    return document.cookie.slice(8, 44);
                 };
+                /**
+                 * Удаляет куки с tokenId
+                 *
+                 */
                 CookieService.prototype.deleteCookie = function () {
-                    var cookie = document.cookie;
-                    var rights = cookie.slice(6, 42);
-                    var date = new Date(cookie.slice(58, -1)).getTime();
-                    var now = Date.now();
-                    if (((now - date) > 86400000) && ((now - date) < 100000000)) {
-                        document.cookie = "Rights=; path=/; expires=" + new Date(0).toUTCString();
-                        var dateNow = new Date();
-                        dateNow.setDate(dateNow.getDate() + 1);
-                        document.cookie = 'Rights=' + rights + ';path=/;expires=' + dateNow.toUTCString() + ';';
-                    }
-                    return rights;
+                    document.cookie = "TokenId" + "=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
                 };
                 CookieService = __decorate([
                     core_1.Injectable(), 

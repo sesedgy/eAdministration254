@@ -1,13 +1,14 @@
-import { Component} from '@angular/core';
-import {HttpService} from "../services/http.service";
-import {AppSettings} from "../appSettings";
-import {CookieService} from "../services/cookie.service";
+import {Component} from '@angular/core';
+import {HttpService} from "../../services/http.service";
+import {CookieService} from "../../services/cookie.service";
 import {Router} from "@angular/router";
+import {UserService} from "../../services/api/user.service";
+import {Response} from "@angular/http";
 
 @Component({
     selector: 'logIn',
     templateUrl: 'app/views/logIn.html',
-    providers: [HttpService],
+    providers: [HttpService, UserService, CookieService],
     styles: [`
         body {
           padding-top: 40px;
@@ -54,8 +55,9 @@ import {Router} from "@angular/router";
 
 export class LogInComponent {
 
-    constructor(private httpService: HttpService, private router: Router){}
-    rightsForLogIn: string[] = AppSettings.RIGHTS_FOR_LOGIN;
+    constructor(private userService: UserService,
+                private cookieService: CookieService,
+                private router: Router){}
     isIncorrectLoginOrPassword: boolean = false;
     isWrongRights: boolean = false;
     isError: boolean = false;
@@ -68,15 +70,17 @@ export class LogInComponent {
         this.isWrongRights = false;
         this.isError = false;
         try {
-            let response = new CookieService().createAuthorizationHeader();
-            if (response) {
-                let cookieService = new CookieService();
-                cookieService.setCookie(response[0]);
-                this.router.navigate(['/']);
-            }else{
-                this.isIncorrectLoginOrPassword = true;
-                return;
-            }
+            this.userService.authorization(this.login, this.password).subscribe((response:Response) => {
+                let responseBody = response.json();
+                if (responseBody != null) {
+                    this.cookieService.setCookie(responseBody[0]);
+                    this.router.navigate(['']);
+                    return;
+                }else{
+                    this.isIncorrectLoginOrPassword = true;
+                    return;
+                }
+            });
         }catch (exception){
             this.isError = true;
         }

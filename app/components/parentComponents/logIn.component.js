@@ -1,4 +1,4 @@
-System.register(['@angular/core', "../services/http.service", "../appSettings", "../services/cookie.service", "@angular/router"], function(exports_1, context_1) {
+System.register(['@angular/core', "../../services/http.service", "../../services/cookie.service", "@angular/router", "../../services/api/user.service"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['@angular/core', "../services/http.service", "../appSettings", 
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, http_service_1, appSettings_1, cookie_service_1, router_1;
+    var core_1, http_service_1, cookie_service_1, router_1, user_service_1;
     var LogInComponent;
     return {
         setters:[
@@ -20,41 +20,44 @@ System.register(['@angular/core', "../services/http.service", "../appSettings", 
             function (http_service_1_1) {
                 http_service_1 = http_service_1_1;
             },
-            function (appSettings_1_1) {
-                appSettings_1 = appSettings_1_1;
-            },
             function (cookie_service_1_1) {
                 cookie_service_1 = cookie_service_1_1;
             },
             function (router_1_1) {
                 router_1 = router_1_1;
+            },
+            function (user_service_1_1) {
+                user_service_1 = user_service_1_1;
             }],
         execute: function() {
             LogInComponent = (function () {
-                function LogInComponent(httpService, router) {
-                    this.httpService = httpService;
+                function LogInComponent(userService, cookieService, router) {
+                    this.userService = userService;
+                    this.cookieService = cookieService;
                     this.router = router;
-                    this.rightsForLogIn = appSettings_1.AppSettings.RIGHTS_FOR_LOGIN;
                     this.isIncorrectLoginOrPassword = false;
                     this.isWrongRights = false;
                     this.isError = false;
                 }
                 //TODO Шифрование пароля на стороне клиента
                 LogInComponent.prototype.logIn = function () {
+                    var _this = this;
                     this.isIncorrectLoginOrPassword = false;
                     this.isWrongRights = false;
                     this.isError = false;
                     try {
-                        var response = new cookie_service_1.CookieService().createAuthorizationHeader();
-                        if (response) {
-                            var cookieService = new cookie_service_1.CookieService();
-                            cookieService.setCookie(response[0]);
-                            this.router.navigate(['/']);
-                        }
-                        else {
-                            this.isIncorrectLoginOrPassword = true;
-                            return;
-                        }
+                        this.userService.authorization(this.login, this.password).subscribe(function (response) {
+                            var responseBody = response.json();
+                            if (responseBody != null) {
+                                _this.cookieService.setCookie(responseBody[0]);
+                                _this.router.navigate(['']);
+                                return;
+                            }
+                            else {
+                                _this.isIncorrectLoginOrPassword = true;
+                                return;
+                            }
+                        });
                     }
                     catch (exception) {
                         this.isError = true;
@@ -64,10 +67,10 @@ System.register(['@angular/core', "../services/http.service", "../appSettings", 
                     core_1.Component({
                         selector: 'logIn',
                         templateUrl: 'app/views/logIn.html',
-                        providers: [http_service_1.HttpService],
+                        providers: [http_service_1.HttpService, user_service_1.UserService, cookie_service_1.CookieService],
                         styles: ["\n        body {\n          padding-top: 40px;\n          padding-bottom: 40px;\n          background-color: #eee;\n        }\n        \n        .form-signin {\n          max-width: 330px;\n          padding: 15px;\n          margin: 0 auto;\n        }\n        .form-signin .form-signin-heading,\n        .form-signin .checkbox {\n          margin-bottom: 10px;\n        }\n        .form-signin .checkbox {\n          font-weight: normal;\n        }\n        .form-signin .form-control {\n          position: relative;\n          height: auto;\n          -webkit-box-sizing: border-box;\n             -moz-box-sizing: border-box;\n                  box-sizing: border-box;\n          padding: 10px;\n          font-size: 16px;\n        }\n        .form-signin .form-control:focus {\n          z-index: 2;\n        }\n        .form-signin input[type=\"text\"] {\n          margin-bottom: -1px;\n          border-bottom-right-radius: 0;\n          border-bottom-left-radius: 0;\n        }\n        .form-signin input[type=\"password\"] {\n          margin-bottom: 10px;\n          border-top-left-radius: 0;\n          border-top-right-radius: 0;\n        }\n    "]
                     }), 
-                    __metadata('design:paramtypes', [http_service_1.HttpService, router_1.Router])
+                    __metadata('design:paramtypes', [user_service_1.UserService, cookie_service_1.CookieService, router_1.Router])
                 ], LogInComponent);
                 return LogInComponent;
             }());

@@ -11,27 +11,27 @@ System.register(["@angular/core"], function(exports_1, context_1) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1;
-    var HeaderComponent;
+    var AccountSettingsComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             }],
         execute: function() {
-            HeaderComponent = (function () {
-                function HeaderComponent() {
+            AccountSettingsComponent = (function () {
+                function AccountSettingsComponent() {
                 }
-                HeaderComponent = __decorate([
+                AccountSettingsComponent = __decorate([
                     core_1.Component({
-                        selector: 'header',
-                        templateUrl: 'app/views/header.html'
+                        selector: 'accountSettings',
+                        templateUrl: 'app/views/account/accountSettings.html'
                     }), 
                     __metadata('design:paramtypes', [])
-                ], HeaderComponent);
-                return HeaderComponent;
+                ], AccountSettingsComponent);
+                return AccountSettingsComponent;
             }());
-            exports_1("HeaderComponent", HeaderComponent);
+            exports_1("AccountSettingsComponent", AccountSettingsComponent);
         }
     }
 });
-//# sourceMappingURL=header.component.js.map
+//# sourceMappingURL=accountSettings.component.js.map

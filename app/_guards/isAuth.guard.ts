@@ -7,13 +7,12 @@ import {CookieService} from "../services/cookie.service";
 import {Observable} from "rxjs";
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class IsAuthGuard implements CanActivate {
 
     constructor(private cookieService: CookieService,
                 private userService: UserService,
                 private router: Router) {
     }
-
     rightsForLogIn: string[] = AppSettings.RIGHTS_FOR_LOGIN;
 
     canActivate(): Observable<boolean> | boolean {
@@ -28,10 +27,10 @@ export class AuthGuard implements CanActivate {
         return this.userService.checkCookie(cookie, rights).map((response: Response) => {
             let responseBody = response.json();
             if (responseBody) {
-                return true;
-            } else {
-                this.router.navigate(['login']);
+                this.router.navigate(['']);
                 return false;
+            } else {
+                return true;
             }
         });
     }

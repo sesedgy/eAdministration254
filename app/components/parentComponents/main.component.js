@@ -11,27 +11,27 @@ System.register(['@angular/core'], function(exports_1, context_1) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1;
-    var AppComponent;
+    var MainComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             }],
         execute: function() {
-            AppComponent = (function () {
-                function AppComponent() {
+            MainComponent = (function () {
+                function MainComponent() {
                 }
-                AppComponent = __decorate([
+                MainComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',
-                        template: "<router-outlet></router-outlet>"
+                        template: " \n                <header></header>\n                <div class=\"container\">\n                    <router-outlet></router-outlet>\n                </div>\n                "
                     }), 
                     __metadata('design:paramtypes', [])
-                ], AppComponent);
-                return AppComponent;
+                ], MainComponent);
+                return MainComponent;
             }());
-            exports_1("AppComponent", AppComponent);
+            exports_1("MainComponent", MainComponent);
         }
     }
 });
-//# sourceMappingURL=app.component.js.map
+//# sourceMappingURL=main.component.js.map
