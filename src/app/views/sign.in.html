@@ -1,0 +1,211 @@
+<!--<div class="container">-->
+    <!--<form class="form-signin">-->
+        <!--<h2 class="form-signin-heading">Авторизация</h2>-->
+        <!--<label for="login" class="sr-only">Логин</label>-->
+        <!--<input id="login" name="login" class="form-control" [(ngModel)]="login" type="text" placeholder="Логин" required autofocus>-->
+        <!--<label for="password" class="sr-only">Пароль</label>-->
+        <!--<input type="password" id="password" name="password" class="form-control" [(ngModel)]="password" placeholder="Пароль" required>-->
+        <!--<span class="help-block" style="color:red" [hidden]="!isIncorrectLoginOrPassword">Неправильный логин или пароль</span>-->
+        <!--<span class="help-block" style="color:red" [hidden]="!isWrongRights">Недостаточно прав</span>-->
+        <!--<span class="help-block" style="color:red" [hidden]="!isError">Ошибка входа</span>-->
+        <!--<button class="btn btn-lg btn-primary btn-block" (click)="logIn()">Войти</button>-->
+    <!--</form>-->
+<!--</div>-->
+
+
+<div class="main-container">
+    <div class="main-content">
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <div class="login-container">
+                    <div class="center">
+                        <h1>
+                            <i class="ace-icon fa fa-university red"></i>
+                            <span class="grey" id="id-text2">еАдминистрация</span>
+                        </h1>
+                        <h4 class="blue" id="id-company-text">&copy; ИУИКБ</h4>
+                    </div>
+
+                    <div class="space-6"></div>
+
+                    <div [hidden]="isForgotPassword">
+                        <h4 class="header blue lighter bigger">
+                            Пожалуйста авторизуйтесь
+                        </h4>
+                        <div class="space-6"></div>
+                        <form>
+                            <fieldset>
+                                <label class="block clearfix">
+                                    <span class="block input-icon input-icon-right">
+                                        <input type="text" id="login" name="login" [(ngModel)]="login" class="form-control" placeholder="Логин" />
+                                        <i class="ace-icon fa fa-user"></i>
+                                    </span>
+                                </label>
+
+                                <label class="block clearfix">
+                                    <span class="block input-icon input-icon-right">
+                                        <input type="password" id="password" name="password" [(ngModel)]="password" class="form-control" placeholder="Пароль" />
+                                        <i class="ace-icon fa fa-lock"></i>
+                                    </span>
+                                </label>
+                                <span class="help-block red" [hidden]="!isIncorrectLoginOrPassword">Неправильный логин или пароль</span>
+                                <span class="help-block red" [hidden]="!isWrongRights">Недостаточно прав</span>
+                                <span class="help-block red" [hidden]="!isError">Ошибка входа</span>
+                                <div class="space"></div>
+
+
+                                <div class="toolbar clearfix">
+                                    <div>
+                                        <button type="button" class="width-40 pull-left btn btn-sm btn-primary" (click)="forgetPasswordOrNot()">
+                                            <i class="ace-icon fa fa-arrow-left"></i>
+                                            <span class="bigger-110">Я забыл пароль</span>
+                                        </button>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="width-35 pull-right btn btn-sm btn-primary" (click)="logIn()">
+                                            <span class="bigger-110">Войти</span>
+                                            <i class="ace-icon fa fa-arrow-right"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="space-4"></div>
+                            </fieldset>
+                        </form>
+                    </div>
+
+                    <div [hidden]="!isForgotPassword">
+                        <h4 class="header blue lighter bigger">
+                            Введите email указанный при регистрации
+                        </h4>
+                        <div class="space-6"></div>
+                        <form>
+                            <fieldset>
+                                <label class="block clearfix">
+                                    <span class="block input-icon input-icon-right">
+                                        <input type="text" id="email" name="email" [(ngModel)]="email" class="form-control" placeholder="Email" />
+                                        <i class="ace-icon fa fa-envelope"></i>
+                                    </span>
+                                </label>
+
+                                <div class="space"></div>
+
+                                <div class="toolbar clearfix">
+                                    <div>
+                                        <button type="button" class="width-55 pull-left btn btn-sm btn-primary" (click)="forgetPasswordOrNot()">
+                                            <i class="ace-icon fa fa-arrow-left"></i>
+                                            <span class="bigger-110">Вернуться к авторизации</span>
+                                        </button>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="width-35 pull-right btn btn-sm btn-primary" (click)="resetPassword()">
+                                            <span class="bigger-110">Восстановить</span>
+                                            <i class="ace-icon fa fa-arrow-right"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="space-4"></div>
+                            </fieldset>
+                        </form>
+                    </div>
+
+                    <!--<div class="position-relative" >-->
+                        <!--<div id="login-box" class="login-box visible widget-box no-border" [hidden]="isForgotPassword">-->
+                            <!--<div class="widget-body">-->
+                                <!--<div class="widget-main">-->
+                                    <!--<h4 class="header blue lighter bigger">-->
+                                        <!--<i class="ace-icon fa fa-sign-in green"></i>-->
+                                        <!--Пожалуйста авторизуйтесь-->
+                                    <!--</h4>-->
+
+                                    <!--<div class="space-6"></div>-->
+
+                                    <!--<form>-->
+                                        <!--<fieldset>-->
+                                            <!--<label class="block clearfix">-->
+                                                <!--<span class="block input-icon input-icon-right">-->
+                                                    <!--<input type="text" id="login" name="login" [(ngModel)]="login" class="form-control" placeholder="Логин" />-->
+                                                    <!--<i class="ace-icon fa fa-user"></i>-->
+                                                <!--</span>-->
+                                            <!--</label>-->
+
+                                            <!--<label class="block clearfix">-->
+                                                <!--<span class="block input-icon input-icon-right">-->
+                                                    <!--<input type="password" id="password" name="password" [(ngModel)]="password" class="form-control" placeholder="Пароль" />-->
+                                                    <!--<i class="ace-icon fa fa-lock"></i>-->
+                                                <!--</span>-->
+                                            <!--</label>-->
+
+                                            <!--<div class="space"></div>-->
+
+                                            <!--<div class="clearfix">-->
+                                                <!--<button type="button" class="width-35 pull-right btn btn-sm btn-primary" (click)="logIn()">-->
+                                                    <!--<i class="ace-icon fa fa-key"></i>-->
+                                                    <!--<span class="bigger-110">Войти</span>-->
+                                                <!--</button>-->
+                                            <!--</div>-->
+
+                                            <!--<div class="space-4"></div>-->
+                                        <!--</fieldset>-->
+                                    <!--</form>-->
+                                <!--</div>&lt;!&ndash; /.widget-main &ndash;&gt;-->
+
+                                <!--<div class="toolbar clearfix">-->
+                                    <!--<div>-->
+                                        <!--<button data-target="#forgot-box" class="forgot-password-link">-->
+                                            <!--<i class="ace-icon fa fa-arrow-left"></i>-->
+                                            <!--I forgot my password-->
+                                        <!--</button>-->
+                                    <!--</div>-->
+
+                                <!--</div>-->
+                            <!--</div>&lt;!&ndash; /.widget-body &ndash;&gt;-->
+                        <!--</div>&lt;!&ndash; /.login-box &ndash;&gt;-->
+
+                        <!--<div id="forgot-box" class="forgot-box widget-box no-border" [hidden]="!isForgotPassword">-->
+                            <!--<div class="widget-body">-->
+                                <!--<div class="widget-main">-->
+                                    <!--<h4 class="header red lighter bigger">-->
+                                        <!--<i class="ace-icon fa fa-key"></i>-->
+                                        <!--Восстановление пароля-->
+                                    <!--</h4>-->
+
+                                    <!--<div class="space-6"></div>-->
+                                    <!--<p>-->
+                                        <!--Введите ваш email-->
+                                    <!--</p>-->
+
+                                    <!--<form>-->
+                                        <!--<fieldset>-->
+                                            <!--<label class="block clearfix">-->
+                                                <!--<span class="block input-icon input-icon-right">-->
+                                                    <!--<input type="email" id="email" name="email" [(ngModel)]="email" class="form-control" placeholder="Email" />-->
+                                                    <!--<i class="ace-icon fa fa-envelope"></i>-->
+                                                <!--</span>-->
+                                            <!--</label>-->
+
+                                            <!--<div class="clearfix">-->
+                                                <!--<button type="button" class="width-35 pull-right btn btn-sm btn-danger" (click)="resetPassword()">-->
+                                                    <!--<i class="ace-icon fa fa-lightbulb-o"></i>-->
+                                                    <!--<span class="bigger-110">Отправить</span>-->
+                                                <!--</button>-->
+                                            <!--</div>-->
+                                        <!--</fieldset>-->
+                                    <!--</form>-->
+                                <!--</div>&lt;!&ndash; /.widget-main &ndash;&gt;-->
+
+                                <!--<div class="toolbar center">-->
+                                    <!--<button data-target="#login-box" class="back-to-login-link">-->
+                                        <!--<i class="ace-icon fa fa-arrow-left"></i>-->
+                                        <!--Back to login-->
+                                    <!--</button>-->
+                                <!--</div>-->
+
+                            <!--</div>&lt;!&ndash; /.widget-body &ndash;&gt;-->
+                        <!--</div>&lt;!&ndash; /.forgot-box &ndash;&gt;-->
+                    <!--</div>&lt;!&ndash; /.position-relative &ndash;&gt;-->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.main-content -->
+</div>

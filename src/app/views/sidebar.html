@@ -1,0 +1,68 @@
+<div class="sidebar-shortcuts" id="sidebar-shortcuts">
+        <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+            <button class="btn btn-success" title="Абитуриенты">
+                <i class="ace-icon fa fa-user-plus"></i>
+            </button>
+            <button class="btn btn-info" title="Студенты">
+                <i class="ace-icon fa fa-users"></i>
+            </button>
+            <button class="btn btn-warning" title="Архив">
+                <i class="ace-icon fa fa-user-times"></i>
+            </button>
+        </div>
+
+        <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+            <span class="btn btn-success"></span>
+            <span class="btn btn-info"></span>
+            <span class="btn btn-warning"></span>
+        </div>
+    </div><!-- /.sidebar-shortcuts -->
+
+    <ul class="nav nav-list">
+        <li ng-class="mainPageCssClass">
+            <a href="index.html">
+                <i class="menu-icon fa fa-home"></i>
+                <span class="menu-text">Главная страница</span>
+            </a>
+            <b class="arrow"></b>
+        </li>
+
+        <li ng-class="teacherParentCssClass">
+            <a href="" class="dropdown-toggle">
+                <i class="menu-icon fa fa-graduation-cap"></i>
+                <span class="menu-text">
+                                Преподаватели
+                            </span>
+
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+
+            <b class="arrow"></b>
+
+            <ul class="submenu">
+                <li ng-class="searchTeacherPageCssClass">
+                    <a href="typography.html">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Поиск преподавателя
+                    </a>
+
+                    <b class="arrow"></b>
+                </li>
+
+                <li ng-class="loadPageCssClass">
+                    <a href="elements.html">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Рассчитать нагрузку
+                    </a>
+
+                    <b class="arrow"></b>
+                </li>
+
+            </ul>
+        </li>
+
+    </ul><!-- /.nav-list -->
+
+    <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+        <i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+</div>
