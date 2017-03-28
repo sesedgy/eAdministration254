@@ -19,37 +19,35 @@
     </div><!-- /.sidebar-shortcuts -->
 
     <ul class="nav nav-list">
-        <li ng-class="mainPageCssClass">
-            <a href="index.html">
+        <li ng-class="mainPageCssClass" class="hover">
+            <a routerLink="">
                 <i class="menu-icon fa fa-home"></i>
                 <span class="menu-text">Главная страница</span>
             </a>
             <b class="arrow"></b>
         </li>
 
-        <li ng-class="teacherParentCssClass">
-            <a href="" class="dropdown-toggle">
+        <li ng-class="teacherParentCssClass" class="hover">
+            <a routerLink="/teachers" class="dropdown-toggle">
                 <i class="menu-icon fa fa-graduation-cap"></i>
                 <span class="menu-text">
-                                Преподаватели
-                            </span>
-
+                    Преподаватели
+                </span>
                 <b class="arrow fa fa-angle-down"></b>
             </a>
 
             <b class="arrow"></b>
 
             <ul class="submenu">
-                <li ng-class="searchTeacherPageCssClass">
-                    <a href="typography.html">
+                <li ng-class="searchTeacherPageCssClass" class="hover">
+                    <a routerLink="/teachers">
                         <i class="menu-icon fa fa-caret-right"></i>
                         Поиск преподавателя
                     </a>
-
                     <b class="arrow"></b>
                 </li>
 
-                <li ng-class="loadPageCssClass">
+                <li ng-class="loadPageCssClass" class="hover">
                     <a href="elements.html">
                         <i class="menu-icon fa fa-caret-right"></i>
                         Рассчитать нагрузку

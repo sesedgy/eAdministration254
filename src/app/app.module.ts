@@ -15,17 +15,21 @@ import {CookieService} from "./services/cookie.service";
 import {IsAuthGuard} from "./_guards/isAuth.guard";
 import {MainComponent} from "./components/parentComponents/main.component";
 import {SidebarComponent} from "./components/parentComponents/sidebar.component";
+import {TeachersListComponent} from "./components/teachersList.component";
+import {AccountSettingsComponent} from "./components/account/accountSettings.component";
 
 //Маршруты
 const mainRoutes: Routes =[
-    { path: '', component: MainPageComponent}
+    { path: '', component: MainPageComponent},
+    { path: 'teachers', component: TeachersListComponent},
+    { path: 'account_settings', component: AccountSettingsComponent}
+
 ];
 
 const appRoutes: Routes =[
     { path: 'login', component: SignInComponent, canActivate:[IsAuthGuard]},
     { path: '', component: MainComponent, canActivate: [AuthGuard], children: mainRoutes}
 ];
-
 
 @NgModule({
     imports: [
@@ -40,7 +44,9 @@ const appRoutes: Routes =[
         SignInComponent,
         HeaderComponent,
         SidebarComponent,
-        MainPageComponent
+        MainPageComponent,
+        TeachersListComponent,
+        AccountSettingsComponent
     ],
     providers: [
         AuthGuard,
