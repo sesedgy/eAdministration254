@@ -17,12 +17,26 @@ import {MainComponent} from "./components/parentComponents/main.component";
 import {SidebarComponent} from "./components/parentComponents/sidebar.component";
 import {TeachersListComponent} from "./components/teachersList.component";
 import {AccountSettingsComponent} from "./components/account/accountSettings.component";
+import {DisciplinesListComponent} from "./components/settings/disciplinesList.component";
+import {SettingsComponent} from "./components/settings.component";
+import {TeachersComponent} from "./components/teachers.component";
 
 //Маршруты
+const settingsRoutes: Routes =[
+    {path: '', component: DisciplinesListComponent},
+    {path: 'disciplines', component: DisciplinesListComponent}
+];
+
+const teachersRoutes: Routes =[
+    {path: '', component: TeachersListComponent},
+    {path: 'list', component: TeachersListComponent}
+]
+
 const mainRoutes: Routes =[
     { path: '', component: MainPageComponent},
-    { path: 'teachers', component: TeachersListComponent},
-    { path: 'account_settings', component: AccountSettingsComponent}
+    { path: 'account_settings', component: AccountSettingsComponent},
+    { path: 'teachers', component: TeachersComponent, children: teachersRoutes},
+    { path: 'settings', component: SettingsComponent, children: settingsRoutes},
 
 ];
 
@@ -45,7 +59,10 @@ const appRoutes: Routes =[
         HeaderComponent,
         SidebarComponent,
         MainPageComponent,
+        SettingsComponent,
+        TeachersComponent,
         TeachersListComponent,
+        DisciplinesListComponent,
         AccountSettingsComponent
     ],
     providers: [

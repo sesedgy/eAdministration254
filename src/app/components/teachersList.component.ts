@@ -3,7 +3,7 @@ declare let $:any;
 
 @Component({
     selector: 'mainPage',
-    templateUrl: '../views/teachers_list.html'
+    templateUrl: '../views/teachers/teachers_list.html'
 })
 
 export class TeachersListComponent{
