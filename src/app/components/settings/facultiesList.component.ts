@@ -1,15 +1,26 @@
 import {Component} from "@angular/core";
+import {Response} from "@angular/http";
+import {FacultyService} from "../../services/api/faculty.service";
+import {Faculty} from "../../models/faculty";
 declare let $:any;
 
 @Component({
-    selector: 'mainPage',
-    templateUrl: '../views/teachers/teachers_list.html'
+    selector: 'faculties',
+    templateUrl: './../../views/settings/faculties_list.html'
 })
 
-export class TeachersListComponent{
+export class FacultiesListComponent{
+
+    constructor(private facultyService: FacultyService){}
+    private facultyList: Faculty[];
 
     ngOnInit(){
-        var myTable =
+        this.facultyService.getAll().subscribe((response:Response) => {
+            let responseBody = response.json();
+            this.facultyList = responseBody;
+            return;
+        });
+        let myTable =
             $('#dynamic-table')
                 .DataTable({
                     bAutoWidth: false,
@@ -48,6 +59,24 @@ export class TeachersListComponent{
                 });
 
 
+    }
+
+    //TODO Модальное окно с данными из строки
+    editLine(id: string){
+
+    }
+
+    deleteLine(id: string){
+        this.facultyService.delete(id).subscribe((response:Response) => {
+            let responseBody = response.json();
+            this.facultyList = responseBody;
+            return;
+        });
+        this.facultyService.getAll().subscribe((response:Response) => {
+            let responseBody = response.json();
+            this.facultyList = responseBody;
+            return;
+        });
     }
 
 }

@@ -4,6 +4,7 @@ import {CookieService} from "../../services/cookie.service";
 import {Router} from "@angular/router";
 import {UserService} from "../../services/api/user.service";
 import {Response} from "@angular/http";
+import {AppSettings} from "./../../appSettings";
 declare let $:any;
 
 @Component({
@@ -14,7 +15,12 @@ declare let $:any;
         body {
           padding-top: 40px;
           padding-bottom: 40px;
-          background-color: #eee;
+          background-color: #F2F2F2;
+        }
+        
+        .row {
+            margin-right: 0;
+            margin-right: 0;
         }
         
         .form-signin {
@@ -58,11 +64,16 @@ export class SignInComponent {
 
     constructor(private userService: UserService,
                 private cookieService: CookieService,
-                private router: Router){}
+                private router: Router,
+                ){}
     isIncorrectLoginOrPassword: boolean = false;
     isWrongRights: boolean = false;
     isError: boolean = false;
+    isUnknownEmail: boolean = false;
+    isSignIn:boolean = true;
     isForgotPassword:boolean = false;
+    isResetPassword:boolean = false;
+    is:boolean = false;
     login: string;
     password: string;
     email: string;
@@ -92,11 +103,30 @@ export class SignInComponent {
     }
 
     resetPassword(){
-        //TODO реализовать отправку на почту нового пароля
+        this.userService.resetPassword(this.email).subscribe((response:Response) => {
+            let responseBody = response.json();
+            if(responseBody){
+               this.isForgotPassword = false;
+               this.isResetPassword = true;
+            }else{
+                this.isUnknownEmail = true;
+            }
+        });
     }
 
-    forgetPasswordOrNot(){
-        this.isForgotPassword = !this.isForgotPassword;
+    forgetPassword(){
+        this.isForgotPassword = true;
+        this.isSignIn = false;
+    }
+
+    returnToSignIn(){
+        this.isForgotPassword = false;
+        this.isResetPassword = false;
+        this.isSignIn = true;
+    }
+
+    returnToSite(){
+        location.href = AppSettings.MAIN_SITE_URL;
     }
 
 }

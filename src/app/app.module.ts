@@ -20,11 +20,15 @@ import {AccountSettingsComponent} from "./components/account/accountSettings.com
 import {DisciplinesListComponent} from "./components/settings/disciplinesList.component";
 import {SettingsComponent} from "./components/settings.component";
 import {TeachersComponent} from "./components/teachers.component";
+import {DisciplineService} from "./services/api/discipline.service";
+import {FacultyService} from "./services/api/faculty.service";
+import {FacultiesListComponent} from "./components/settings/facultiesList.component";
 
 //Маршруты
 const settingsRoutes: Routes =[
     {path: '', component: DisciplinesListComponent},
-    {path: 'disciplines', component: DisciplinesListComponent}
+    {path: 'disciplines', component: DisciplinesListComponent},
+    {path: 'faculties', component: FacultiesListComponent}
 ];
 
 const teachersRoutes: Routes =[
@@ -63,6 +67,7 @@ const appRoutes: Routes =[
         TeachersComponent,
         TeachersListComponent,
         DisciplinesListComponent,
+        FacultiesListComponent,
         AccountSettingsComponent
     ],
     providers: [
@@ -70,7 +75,9 @@ const appRoutes: Routes =[
         IsAuthGuard,
         HttpService,
         UserService,
-        CookieService
+        CookieService,
+        DisciplineService,
+        FacultyService
     ],
     bootstrap: [ AppComponent ]
 })

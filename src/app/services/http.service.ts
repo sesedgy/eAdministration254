@@ -3,6 +3,7 @@ import {Http, Headers, Response} from '@angular/http';
 import {AppSettings} from "../appSettings";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+declare let $:any;
 
 @Injectable()
 export class HttpService{
@@ -26,11 +27,19 @@ export class HttpService{
      *
      * @param {string} tokenId.
      */
-    post(urlApi, obj){
+    post(urlApi, obj, header){
         const body = JSON.stringify(obj);
-        let headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
-        return this.http.post(this.urlServer + urlApi, body, { headers: headers })
-            .map((resp:Response)=>resp.json());
-            // .catch((error:any) =>{return Observable.throw(error);});
+        header.append('Content-Type', 'application/json;charset=utf-8');
+        return this.http.post(this.urlServer + urlApi, body, header);
     }
+
+    error(){
+
+        $.gritter.add({
+            title: 'This is a warning notification',
+            text: 'Just add a "gritter-light" class_name to your $.gritter.add or globally to $.gritter.options.class_name',
+            class_name: 'gritter-error'
+        });
+    }
+    //TODO Сделать отображение ошибки для запросов и ошибки прав доступа всплывающим окном
 }

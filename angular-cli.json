@@ -19,6 +19,7 @@
       "prefix": "app",
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
+        "../node_modules/gritter/css/jquery.gritter.css",
         "assets/css/font-awesome.min.css",
         "assets/css/fonts.googleapis.com.css",
         "assets/css/ace.min.css",
@@ -38,6 +39,7 @@
         "../node_modules/datatables.net-buttons/js/buttons.print.js",
         "../node_modules/datatables.net-buttons/js/buttons.colVis.js",
         "../node_modules/datatables.net-select/js/dataTables.select.js",
+        "../node_modules/gritter/js/jquery.gritter.min.js",
 
         "assets/scripts/ace-extra.min.js",
         "assets/scripts/ace-elements.min.js",

@@ -98,7 +98,7 @@ export class Abiturient{
     public militaryTicketCodeVus: string;
     public militaryTicketMilitaryOffice: string;
 
-public whoUpdate: string;
+    public whoUpdate: string;
     public createdDate: string;
     public updatedDate: string;
 

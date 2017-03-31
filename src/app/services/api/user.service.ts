@@ -19,4 +19,8 @@ export class UserService{
         return this.httpService.get('users/checkCookie/' + cookie + '&' + rights, this.cookieService.createAuthorizationHeader());
     }
 
+    resetPassword(email: string) {
+        return this.httpService.get('users/resetPassword/' + email, null);
+    }
+
 }
