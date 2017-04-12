@@ -23,6 +23,11 @@ import {TeachersComponent} from "./components/teachers.component";
 import {DisciplineService} from "./services/api/discipline.service";
 import {FacultyService} from "./services/api/faculty.service";
 import {FacultiesListComponent} from "./components/settings/facultiesList.component";
+import {NgSpinningPreloader} from "ng2-spinning-preloader";
+import {DataTableModule} from "primeng/components/datatable/datatable";
+import {InputTextModule} from "primeng/components/inputtext/inputtext";
+import {ButtonModule} from "primeng/components/button/button";
+import {DialogModule} from "primeng/components/dialog/dialog";
 
 //Маршруты
 const settingsRoutes: Routes =[
@@ -34,7 +39,7 @@ const settingsRoutes: Routes =[
 const teachersRoutes: Routes =[
     {path: '', component: TeachersListComponent},
     {path: 'list', component: TeachersListComponent}
-]
+];
 
 const mainRoutes: Routes =[
     { path: '', component: MainPageComponent},
@@ -55,7 +60,8 @@ const appRoutes: Routes =[
         ReactiveFormsModule,
         FormsModule,
         RouterModule.forRoot(appRoutes),
-        HttpModule],
+        HttpModule,
+        DataTableModule,InputTextModule,ButtonModule],
     declarations: [
         AppComponent,
         MainComponent,
@@ -71,6 +77,7 @@ const appRoutes: Routes =[
         AccountSettingsComponent
     ],
     providers: [
+        NgSpinningPreloader,
         AuthGuard,
         IsAuthGuard,
         HttpService,

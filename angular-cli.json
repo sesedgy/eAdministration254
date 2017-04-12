@@ -20,6 +20,7 @@
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
         "../node_modules/gritter/css/jquery.gritter.css",
+        "../node_modules/ng2-spinning-preloader/dist/ng-spinning-preloader.css",
         "assets/css/font-awesome.min.css",
         "assets/css/fonts.googleapis.com.css",
         "assets/css/ace.min.css",

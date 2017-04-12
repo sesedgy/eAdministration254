@@ -91,7 +91,6 @@ export class SignInComponent {
                 if (responseBody != null) {
                     this.cookieService.setCookie(responseBody[0]);
                     this.router.navigate(['']);
-                    return;
                 }else{
                     this.isIncorrectLoginOrPassword = true;
                     return;

@@ -19,7 +19,8 @@ export class HttpService{
      * @return {Observable<Response>}
      */
     get(urlApi, header){
-        return this.http.get(this.urlServer + urlApi, header);
+        return this.http.get(this.urlServer + urlApi, header)
+            .catch((err: any) => {this.error(err); return null;});
     }
 
     /**
@@ -30,16 +31,15 @@ export class HttpService{
     post(urlApi, obj, header){
         const body = JSON.stringify(obj);
         header.append('Content-Type', 'application/json;charset=utf-8');
-        return this.http.post(this.urlServer + urlApi, body, header);
+        return this.http.post(this.urlServer + urlApi, body, header)
+            .catch((err: any) => {this.error(err); return null;});
     }
 
-    error(){
-
+    error(error){
         $.gritter.add({
-            title: 'This is a warning notification',
-            text: 'Just add a "gritter-light" class_name to your $.gritter.add or globally to $.gritter.options.class_name',
+            title: 'Ошибка запроса к серверу',
+            text: error,
             class_name: 'gritter-error'
         });
     }
-    //TODO Сделать отображение ошибки для запросов и ошибки прав доступа всплывающим окном
 }
