@@ -90,6 +90,7 @@ export class SignInComponent {
                 let responseBody = response.json();
                 if (responseBody != null) {
                     this.cookieService.setCookie(responseBody[0]);
+                    this.userService.setCurrentUserLogin(this.login);
                     this.router.navigate(['']);
                 }else{
                     this.isIncorrectLoginOrPassword = true;

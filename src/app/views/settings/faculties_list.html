@@ -11,10 +11,95 @@
 <div class="row">
     <div class="col-xs-12">
         <div>
-            <!--<p-dataTable [value]="facultyList">-->
-                <!--<p-column field="name" header="Название"></p-column>-->
-                <!--<p-column field="chiefId" header="ID руководителя"></p-column>-->
-            <!--</p-dataTable>-->
+            <p-dataTable #dt [value]="facultyList"
+                         [rows]="30" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[30,50,100]"
+                         [globalFilter]="gb" resizableColumns="true">
+                <p-header>
+                    <div class="ui-helper-clearfix">
+                        <h4 style="float: left">Факультеты</h4>
+                        <input style="float: right" #gb type="text" pInputText size="50" placeholder="Глобальный фильтр">
+                    </div>
+                </p-header>
+                <p-footer>
+                    <div class="ui-helper-clearfix">
+                        <h5 style="float: left">Кол-во записей: {{rowCount}}</h5>
+                    </div>
+                </p-footer>
+                <p-column field="name" header="Название" [sortable]="true" [filter]="true" filterPlaceholder="Найти..."></p-column>
+                <p-column field="chiefId" header="ID руководителя"></p-column>
+                <p-column styleClass="col-button">
+                    <ng-template let-item="rowData" pTemplate="body">
+                        <div class="action-buttons">
+                            <!--<button type="button" pButton (click)="selectCar(car)" icon="fa-search"></button>-->
+                            <!--<a class="blue" href="#">-->
+                                <!--<i class="ace-icon fa fa-search-plus bigger-130" (click)="editRow()"></i>-->
+                            <!--</a>-->
+                            <a class="green" href="#">
+                                <i class="ace-icon fa fa-pencil bigger-130" (click)="editRow(item)"></i>
+                            </a>
+                            <a class="red" href="#">
+                                <i class="ace-icon fa fa-trash-o bigger-130" (click)="deleteRow(item)"></i>
+                            </a>
+                        </div>
+                    </ng-template>
+                </p-column>
+            </p-dataTable>
+        </div>
+    </div>
+</div>
+
+<div id="modal-form" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="blue bigger">{{modalHeader}}</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+
+
+                        <div class="space-4"></div>
+
+                        <div class="form-group">
+                            <label for="form-field-username">Username</label>
+
+                            <div>
+                                <input type="text" id="form-field-username" placeholder="Username" value="alexdoe" />
+                            </div>
+                        </div>
+
+                        <div class="space-4"></div>
+
+                        <div class="form-group">
+                            <label for="form-field-first">Name</label>
+
+                            <div>
+                                <input type="text" id="form-field-first" placeholder="First Name" value="Alex" />
+                                <input type="text" id="form-field-last" placeholder="Last Name" value="Doe" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-sm" data-dismiss="modal">
+                    <i class="ace-icon fa fa-times"></i>
+                    Отменить
+                </button>
+
+                <button class="btn btn-sm btn-primary" (click)="addRow()" [hidden]="!isAddUser">
+                    <i class="ace-icon fa fa-check"></i>
+                    Добавить
+                </button>
+                <button class="btn btn-sm btn-primary" (click)="editRow()" [hidden]="isAddUser">
+                    <i class="ace-icon fa fa-check"></i>
+                    Сохранить
+                </button>
+            </div>
         </div>
     </div>
 </div>

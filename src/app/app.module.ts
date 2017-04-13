@@ -28,6 +28,7 @@ import {DataTableModule} from "primeng/components/datatable/datatable";
 import {InputTextModule} from "primeng/components/inputtext/inputtext";
 import {ButtonModule} from "primeng/components/button/button";
 import {DialogModule} from "primeng/components/dialog/dialog";
+import {GuidService} from "./services/guid.service";
 
 //Маршруты
 const settingsRoutes: Routes =[
@@ -81,6 +82,7 @@ const appRoutes: Routes =[
         AuthGuard,
         IsAuthGuard,
         HttpService,
+        GuidService,
         UserService,
         CookieService,
         DisciplineService,

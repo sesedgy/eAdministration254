@@ -15,7 +15,8 @@
       "main": "main.ts",
       "polyfills": "polyfills.ts",
       "test": "test.ts",
-      "tsconfig": "tsconfig.json",
+      "tsconfig": "tsconfig.app.json",
+      "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
@@ -26,6 +27,8 @@
         "assets/css/ace.min.css",
         "assets/css/ace-skins.min.css",
         "assets/css/ace-rtl.min.css",
+        "../node_modules/primeng/resources/themes/omega/theme.css",
+        "../node_modules/primeng/resources/primeng.min.css",
         "styles.css"
       ],
       "scripts": [
@@ -51,8 +54,8 @@
         "../node_modules/bootstrap-fileinput/js/fileinput.min.js",
         "../node_modules/bootstrap-fileinput/js/locales/ru.js"
     ],
+      "environmentSource": "environments/environment.ts",
       "environments": {
-        "source": "environments/environment.ts",
         "dev": "environments/environment.ts",
         "prod": "environments/environment.prod.ts"
       }
