@@ -65,7 +65,7 @@ System.register(['@angular/core', '@angular/platform-browser', '@angular/forms',
                 { path: '', component: mainPage_component_1.MainPageComponent }
             ];
             appRoutes = [
-                { path: 'login', component: logIn_component_1.LogInComponent, canActivate: [isAuth_guard_1.IsAuthGuard] },
+                { path: 'Login', component: logIn_component_1.LogInComponent, canActivate: [isAuth_guard_1.IsAuthGuard] },
                 { path: '', component: main_component_1.MainComponent, canActivate: [auth_guard_1.AuthGuard], children: mainRoutes }
             ];
             AppModule = (function () {

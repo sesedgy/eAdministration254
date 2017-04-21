@@ -1,13 +1,15 @@
+import {Faculty} from "./faculty";
 export class Discipline {
-    public id: string;
-    public name: string;
-    public shortName: string;
-    public faculty: string;
-    public statusDiscipline: string;
 
-    public whoUpdate: string;
-    public createdDate: string;
-    public updatedDate: string;
+    public DisciplineId: string;
+    public Name: string;
+    public ShortName: string;
+    public Faculty: Faculty;
+    public StatusDiscipline: string;
+
+    public WhoUpdate: string;
+    public CreatedDate: Date;
+    public UpdatedDate: Date;
 
     constructor() {
 

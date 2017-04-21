@@ -108,6 +108,6 @@ export class Abiturient{
 
     save() {
         // HTTP request would go here
-        // console.log(this.name, this.email, this.rating);
+        // console.log(this.Name, this.Email, this.rating);
     }
 }

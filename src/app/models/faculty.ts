@@ -1,11 +1,13 @@
 export class Faculty {
-    public id: string;
-    public name: string;
-    public chiefId: string;
+    public FacultyId: string;
+    public Name: string;
 
-    public whoUpdate: string;
-    public createdDate: string;
-    public updatedDate: string;
+    public Disciplines: Array<any>;
+    public Teachers: Array<any>;
+
+    public WhoUpdate: string;
+    public CreatedDate: Date;
+    public UpdatedDate: Date;
 
     constructor() {
 

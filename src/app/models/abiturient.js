@@ -10,7 +10,7 @@ System.register([], function(exports_1, context_1) {
                 }
                 Abiturient.prototype.save = function () {
                     // HTTP request would go here
-                    // console.log(this.name, this.email, this.rating);
+                    // console.log(this.Name, this.Email, this.rating);
                 };
                 return Abiturient;
             }());

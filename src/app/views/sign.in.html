@@ -1,10 +1,10 @@
 <!--<div class="container">-->
     <!--<form class="form-signin">-->
         <!--<h2 class="form-signin-heading">Авторизация</h2>-->
-        <!--<label for="login" class="sr-only">Логин</label>-->
-        <!--<input id="login" name="login" class="form-control" [(ngModel)]="login" type="text" placeholder="Логин" required autofocus>-->
-        <!--<label for="password" class="sr-only">Пароль</label>-->
-        <!--<input type="password" id="password" name="password" class="form-control" [(ngModel)]="password" placeholder="Пароль" required>-->
+        <!--<label for="Login" class="sr-only">Логин</label>-->
+        <!--<input DisciplineId="Login" Name="Login" class="form-control" [(ngModel)]="Login" type="text" placeholder="Логин" required autofocus>-->
+        <!--<label for="Password" class="sr-only">Пароль</label>-->
+        <!--<input type="Password" DisciplineId="Password" Name="Password" class="form-control" [(ngModel)]="Password" placeholder="Пароль" required>-->
         <!--<span class="help-block" style="color:red" [hidden]="!isIncorrectLoginOrPassword">Неправильный логин или пароль</span>-->
         <!--<span class="help-block" style="color:red" [hidden]="!isWrongRights">Недостаточно прав</span>-->
         <!--<span class="help-block" style="color:red" [hidden]="!isError">Ошибка входа</span>-->
@@ -28,7 +28,7 @@
 
                     <div class="space-6"></div>
 
-                    <div [hidden]="!isSignIn">
+                    <div *ngIf="isSignIn">
                         <h4 class="header blue lighter bigger">
                             Пожалуйста авторизуйтесь
                         </h4>
@@ -48,9 +48,9 @@
                                         <i class="ace-icon fa fa-lock"></i>
                                     </span>
                                 </label>
-                                <span class="help-block red" [hidden]="!isIncorrectLoginOrPassword">Неправильный логин или пароль</span>
-                                <span class="help-block red" [hidden]="!isWrongRights">Недостаточно прав</span>
-                                <span class="help-block red" [hidden]="!isError">Ошибка входа</span>
+                                <span class="help-block red" *ngIf="isIncorrectLoginOrPassword">Неправильный логин или пароль</span>
+                                <span class="help-block red" *ngIf="isWrongRights">Недостаточно прав</span>
+                                <span class="help-block red" *ngIf="isError">Ошибка входа</span>
                                 <div class="space"></div>
 
 
@@ -74,7 +74,7 @@
                         </form>
                     </div>
 
-                    <div [hidden]="!isForgotPassword">
+                    <div *ngIf="isForgotPassword">
                         <h4 class="header blue lighter bigger">
                             Введите email указанный при регистрации
                         </h4>
@@ -87,7 +87,7 @@
                                         <i class="ace-icon fa fa-envelope"></i>
                                     </span>
                                 </label>
-                                <span class="help-block red" [hidden]="!isUnknownEmail">Такой почты не существует</span>
+                                <span class="help-block red" *ngIf="isUnknownEmail">Такой почты не существует</span>
 
                                 <div class="space"></div>
 
@@ -111,7 +111,7 @@
                         </form>
                     </div>
 
-                    <div [hidden]="!isResetPassword">
+                    <div *ngIf="isResetPassword">
                         <h4 class="header blue lighter bigger">
                             Новый пароль выслан вам на почту
                         </h4>

@@ -1,7 +1,3 @@
 [hidden] {
     display: none;
 }
-.dataTables_wrapper > .row > .col-sm-12 {
-    padding-left: 0;
-    padding-right: 0;
-}

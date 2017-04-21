@@ -53,7 +53,7 @@ System.register(['@angular/core', '@angular/router', "../appSettings", "../servi
                             return true;
                         }
                         else {
-                            _this.router.navigate(['login']);
+                            _this.router.navigate(['Login']);
                             return false;
                         }
                     });

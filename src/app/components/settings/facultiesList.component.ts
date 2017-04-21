@@ -3,7 +3,7 @@ import {Response} from "@angular/http";
 import {FacultyService} from "../../services/api/faculty.service";
 import {Faculty} from "../../models/faculty";
 import {GuidService} from "../../services/guid.service";
-// import {DataTableModule,SharedModule} from 'primeng/primeng';
+import {CookieService} from "../../services/cookie.service";
 declare let $:any;
 
 @Component({
@@ -15,32 +15,67 @@ export class FacultiesListComponent implements OnInit{
 
     private facultyList: Faculty[];
     private rowCount: number;
-    private isAddUser: boolean;
+    private isAddRow: boolean;
+    private modalHeader: string;
+    private faculty: Faculty = new Faculty();
+    private facultyBeforeChanges: Faculty;
 
     constructor(private facultyService: FacultyService,
-                private guidService: GuidService){}
+                private guidService: GuidService,
+                private cookieService: CookieService){}
 
     ngOnInit(){
         this.facultyService.getAll().subscribe((response:Response) => {
-            let responseBody = response.json();
-            this.facultyList = responseBody;
+            this.facultyList = response.json();
             this.rowCount = this.facultyList.length;
         });
 
     }
 
     addRow(){
+        this.faculty = new Faculty();
+        this.faculty.FacultyId = this.guidService.createGuid();
+        this.faculty.WhoUpdate = this.cookieService.getCurrentUserLogin();
+        this.isAddRow = true;
+        this.modalHeader = "Добавить запись";
+        $("#modalWindow").modal('show');
+    }
 
+    addRowSave(){
+        let facultyList = this.facultyList;
+        this.faculty.CreatedDate = new Date();
+        this.facultyService.create(this.faculty).subscribe(() => {
+           facultyList.push(this.faculty);
+            this.rowCount++;
+            $("#modalWindow").modal('hide');
+        });
     }
 
     editRow(faculty: Faculty){
+        this.faculty = faculty;
+        this.faculty.WhoUpdate = this.cookieService.getCurrentUserLogin();
+        this.facultyBeforeChanges = faculty;
+        this.isAddRow = false;
+        this.modalHeader = "Изменить запись";
+        $("#modalWindow").modal('show');
+    }
 
+    editRowSave(){
+        let facultyList = this.facultyList;
+        this.faculty.UpdatedDate = new Date();
+        this.facultyService.update(this.faculty).subscribe(() => {
+            let index = facultyList.lastIndexOf(this.facultyBeforeChanges);
+            facultyList[index] = this.faculty;
+            $("#modalWindow").modal('hide');
+        });
     }
 
     deleteRow(faculty: Faculty){
-        this.facultyService.delete(faculty.id).subscribe((response:Response) => {
-            this.facultyList.slice(this.facultyList.indexOf(faculty), 1);
-            return;
+        let facultyList = this.facultyList;
+        this.facultyService.delete(faculty.FacultyId).subscribe(() => {
+            let index = facultyList.lastIndexOf(faculty);
+            facultyList.splice(index , 1);
+            this.rowCount--;
         });
     }
 

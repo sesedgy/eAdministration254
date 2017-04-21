@@ -23,21 +23,21 @@
                 <p-footer>
                     <div class="ui-helper-clearfix">
                         <h5 style="float: left">Кол-во записей: {{rowCount}}</h5>
+                        <button type="button" class="btn btn-sm btn-primary" style="float:right" (click)="addRow()"><i class="ace-icon fa fa-plus"></i>Добавить</button>
                     </div>
                 </p-footer>
-                <p-column field="name" header="Название" [sortable]="true" [filter]="true" filterPlaceholder="Найти..."></p-column>
-                <p-column field="chiefId" header="ID руководителя"></p-column>
-                <p-column styleClass="col-button">
+                <p-column field="Name" header="Название" [sortable]="true" [filter]="true" filterPlaceholder="Найти..."></p-column>
+                <!--<p-column field="chiefId" header="ID руководителя"></p-column>-->
+                <p-column styleClass="col-button" [style]="{'width':'5%'}">
                     <ng-template let-item="rowData" pTemplate="body">
                         <div class="action-buttons">
-                            <!--<button type="button" pButton (click)="selectCar(car)" icon="fa-search"></button>-->
-                            <!--<a class="blue" href="#">-->
+                            <!--<a class="blue" routerLink="/settings/faculties">-->
                                 <!--<i class="ace-icon fa fa-search-plus bigger-130" (click)="editRow()"></i>-->
                             <!--</a>-->
-                            <a class="green" href="#">
+                            <a class="green" routerLink="/settings/faculties">
                                 <i class="ace-icon fa fa-pencil bigger-130" (click)="editRow(item)"></i>
                             </a>
-                            <a class="red" href="#">
+                            <a class="red" routerLink="/settings/faculties">
                                 <i class="ace-icon fa fa-trash-o bigger-130" (click)="deleteRow(item)"></i>
                             </a>
                         </div>
@@ -48,7 +48,7 @@
     </div>
 </div>
 
-<div id="modal-form" class="modal" tabindex="-1">
+<div id="modalWindow" class="modal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -59,29 +59,21 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-xs-12">
-
-
-                        <div class="space-4"></div>
-
                         <div class="form-group">
-                            <label for="form-field-username">Username</label>
-
+                            <label for="name">Название факультета</label>
                             <div>
-                                <input type="text" id="form-field-username" placeholder="Username" value="alexdoe" />
-                            </div>
-                        </div>
-
-                        <div class="space-4"></div>
-
-                        <div class="form-group">
-                            <label for="form-field-first">Name</label>
-
-                            <div>
-                                <input type="text" id="form-field-first" placeholder="First Name" value="Alex" />
-                                <input type="text" id="form-field-last" placeholder="Last Name" value="Doe" />
+                                <input type="text" id="name" name="name" class="col-xs-12" [(ngModel)]="faculty.Name"/>
                             </div>
                         </div>
                     </div>
+                    <!--<div class="col-xs-6">-->
+                        <!--<div class="form-group">-->
+                            <!--<label for="idBoss">ID руководителя</label>-->
+                            <!--<div>-->
+                                <!--<input type="text" DisciplineId="idBoss" Name="idBoss" class="col-xs-12" [(ngModel)]="Faculty.chiefId"/>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
                 </div>
             </div>
 
@@ -90,12 +82,11 @@
                     <i class="ace-icon fa fa-times"></i>
                     Отменить
                 </button>
-
-                <button class="btn btn-sm btn-primary" (click)="addRow()" [hidden]="!isAddUser">
+                <button class="btn btn-sm btn-primary" *ngIf="isAddRow" (click)="addRowSave()">
                     <i class="ace-icon fa fa-check"></i>
                     Добавить
                 </button>
-                <button class="btn btn-sm btn-primary" (click)="editRow()" [hidden]="isAddUser">
+                <button class="btn btn-sm btn-primary" *ngIf="!isAddRow" (click)="editRowSave()">
                     <i class="ace-icon fa fa-check"></i>
                     Сохранить
                 </button>
@@ -103,3 +94,4 @@
         </div>
     </div>
 </div>
+

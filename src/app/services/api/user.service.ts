@@ -6,8 +6,6 @@ import {User} from "../../models/user";
 @Injectable()
 export class UserService{
 
-    private currentUserLogin: string;
-
     constructor(private httpService: HttpService, private cookieService: CookieService) { }
 
     authorization(login: string, password: string) {
@@ -24,14 +22,6 @@ export class UserService{
 
     resetPassword(email: string) {
         return this.httpService.get('users/resetPassword/' + email, null);
-    }
-
-    getCurrentUserLogin(){
-        return this.currentUserLogin;
-    }
-
-    setCurrentUserLogin(login: string){
-        this.currentUserLogin = login;
     }
 
 }

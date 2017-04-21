@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http, Headers, Response} from '@angular/http';
+import {Http, Response} from '@angular/http';
 import {AppSettings} from "../appSettings";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -15,24 +15,39 @@ export class HttpService{
      * Отправляет GET запрос
      *
      * @param {string} urlApi адрес запроса.
-     * @param {string} header запроса.
+     * @param {RequestOptions} requestOptions запроса.
      * @return {Observable<Response>}
      */
-    get(urlApi, header){
-        return this.http.get(this.urlServer + urlApi, header)
-            .catch((err: any) => {this.error(err); return null;});
+    get(urlApi, requestOptions){
+        return this.http.get(this.urlServer + urlApi, requestOptions)
+            .catch((err: any) => {
+                if (err.status === 401)
+                {
+                    window.location.replace('/Login');
+                }
+                this.error(err); return null;
+        });
     }
 
     /**
-     * ПРОТЕСТИТЬ
+     * Отправляет POST запрос
      *
-     * @param {string} tokenId.
+     * @param {string} urlApi адрес запроса.
+     * @param {object} object запроса.
+     * @param {RequestOptions} requestOptions запроса.
+     * @return {Observable<Response>}
      */
-    post(urlApi, obj, header){
-        const body = JSON.stringify(obj);
-        header.append('Content-Type', 'application/json;charset=utf-8');
-        return this.http.post(this.urlServer + urlApi, body, header)
-            .catch((err: any) => {this.error(err); return null;});
+    post(urlApi, object, requestOptions){
+        const body = JSON.stringify(object);
+        requestOptions.headers.append('Content-Type', 'application/json;charset=utf-8');
+        return this.http.post(this.urlServer + urlApi, body, requestOptions)
+            .catch((err: any) => {
+                if (err.status === 401)
+                {
+                    window.location.replace('/Login');
+                }
+                this.error(err); return null;
+        });
     }
 
     error(error){

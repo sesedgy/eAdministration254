@@ -39,7 +39,7 @@ System.register(['@angular/core', "@angular/http"], function(exports_1, context_
                  *
                  * @param {string} tokenId.
                  */
-                CookieService.prototype.setCookie = function (tokenId) {
+                CookieService.prototype.setTokenId = function (tokenId) {
                     //Куки действительны втечении одного дня
                     var date = new Date();
                     date.setDate(date.getDate() + 1);
@@ -57,7 +57,7 @@ System.register(['@angular/core', "@angular/http"], function(exports_1, context_
                  * Удаляет куки с tokenId
                  *
                  */
-                CookieService.prototype.deleteCookie = function () {
+                CookieService.prototype.deleteAllCookie = function () {
                     document.cookie = "TokenId" + "=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
                 };
                 CookieService = __decorate([

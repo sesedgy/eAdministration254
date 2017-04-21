@@ -89,8 +89,8 @@ export class SignInComponent {
             this.userService.authorization(this.login, this.password).subscribe((response:Response) => {
                 let responseBody = response.json();
                 if (responseBody != null) {
-                    this.cookieService.setCookie(responseBody[0]);
-                    this.userService.setCurrentUserLogin(this.login);
+                    this.cookieService.setTokenId(responseBody[0]);
+                    this.cookieService.setCurrentUserLogin(this.login);
                     this.router.navigate(['']);
                 }else{
                     this.isIncorrectLoginOrPassword = true;

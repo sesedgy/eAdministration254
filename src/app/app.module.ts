@@ -27,8 +27,9 @@ import {NgSpinningPreloader} from "ng2-spinning-preloader";
 import {DataTableModule} from "primeng/components/datatable/datatable";
 import {InputTextModule} from "primeng/components/inputtext/inputtext";
 import {ButtonModule} from "primeng/components/button/button";
-import {DialogModule} from "primeng/components/dialog/dialog";
 import {GuidService} from "./services/guid.service";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {DropdownModule} from "primeng/components/dropdown/dropdown";
 
 //Маршруты
 const settingsRoutes: Routes =[
@@ -45,13 +46,13 @@ const teachersRoutes: Routes =[
 const mainRoutes: Routes =[
     { path: '', component: MainPageComponent},
     { path: 'account_settings', component: AccountSettingsComponent},
-    { path: 'teachers', component: TeachersComponent, children: teachersRoutes},
+    { path: 'Teachers', component: TeachersComponent, children: teachersRoutes},
     { path: 'settings', component: SettingsComponent, children: settingsRoutes},
 
 ];
 
 const appRoutes: Routes =[
-    { path: 'login', component: SignInComponent, canActivate:[IsAuthGuard]},
+    { path: 'Login', component: SignInComponent, canActivate:[IsAuthGuard]},
     { path: '', component: MainComponent, canActivate: [AuthGuard], children: mainRoutes}
 ];
 
@@ -62,7 +63,8 @@ const appRoutes: Routes =[
         FormsModule,
         RouterModule.forRoot(appRoutes),
         HttpModule,
-        DataTableModule,InputTextModule,ButtonModule],
+        BrowserAnimationsModule,
+        DataTableModule,InputTextModule,ButtonModule,DropdownModule],
     declarations: [
         AppComponent,
         MainComponent,

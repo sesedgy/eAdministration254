@@ -20,37 +20,32 @@
       "prefix": "app",
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
-        "../node_modules/gritter/css/jquery.gritter.css",
         "../node_modules/ng2-spinning-preloader/dist/ng-spinning-preloader.css",
+
+        "../node_modules/gritter/css/jquery.gritter.css",
+
         "assets/css/font-awesome.min.css",
         "assets/css/fonts.googleapis.com.css",
+
         "assets/css/ace.min.css",
         "assets/css/ace-skins.min.css",
         "assets/css/ace-rtl.min.css",
         "../node_modules/primeng/resources/themes/omega/theme.css",
         "../node_modules/primeng/resources/primeng.min.css",
         "styles.css"
+
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",
         "../node_modules/bootstrap/dist/js/bootstrap.min.js",
 
-        "../node_modules/datatables.net/js/jquery.dataTables.js",
-        "../node_modules/datatables.net-bs/js/dataTables.bootstrap.js",
-        "../node_modules/datatables.net-buttons/js/dataTables.buttons.js",
-        "../node_modules/datatables.net-buttons/js/buttons.flash.js",
-        "../node_modules/datatables.net-buttons/js/buttons.html5.js",
-        "../node_modules/datatables.net-buttons/js/buttons.print.js",
-        "../node_modules/datatables.net-buttons/js/buttons.colVis.js",
-        "../node_modules/datatables.net-select/js/dataTables.select.js",
-        "../node_modules/gritter/js/jquery.gritter.min.js",
-
         "assets/scripts/ace-extra.min.js",
         "assets/scripts/ace-elements.min.js",
         "assets/scripts/ace.min.js",
 
+        "../node_modules/gritter/js/jquery.gritter.min.js",
+
         "../node_modules/jquery.maskedinput/src/jquery.maskedinput.js",
-        "../node_modules/sweetalert/dist/sweetalert.min.js",
         "../node_modules/bootstrap-fileinput/js/fileinput.min.js",
         "../node_modules/bootstrap-fileinput/js/locales/ru.js"
     ],

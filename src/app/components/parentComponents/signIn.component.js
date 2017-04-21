@@ -46,10 +46,10 @@ System.register(['@angular/core', "../../services/http.service", "../../services
                     this.isWrongRights = false;
                     this.isError = false;
                     try {
-                        this.userService.authorization(this.login, this.password).subscribe(function (response) {
+                        this.userService.authorization(this.Login, this.Password).subscribe(function (response) {
                             var responseBody = response.json();
                             if (responseBody != null) {
-                                _this.cookieService.setCookie(responseBody[0]);
+                                _this.cookieService.setTokenId(responseBody[0]);
                                 _this.router.navigate(['']);
                                 return;
                             }
@@ -68,7 +68,7 @@ System.register(['@angular/core', "../../services/http.service", "../../services
                         selector: 'logIn',
                         templateUrl: '../../views/sign.in.html',
                         providers: [http_service_1.HttpService, user_service_1.UserService, cookie_service_1.CookieService],
-                        styles: ["\n        body {\n          padding-top: 40px;\n          padding-bottom: 40px;\n          background-color: #eee;\n        }\n        \n        .form-signin {\n          max-width: 330px;\n          padding: 15px;\n          margin: 0 auto;\n        }\n        .form-signin .form-signin-heading,\n        .form-signin .checkbox {\n          margin-bottom: 10px;\n        }\n        .form-signin .checkbox {\n          font-weight: normal;\n        }\n        .form-signin .form-control {\n          position: relative;\n          height: auto;\n          -webkit-box-sizing: border-box;\n             -moz-box-sizing: border-box;\n                  box-sizing: border-box;\n          padding: 10px;\n          font-size: 16px;\n        }\n        .form-signin .form-control:focus {\n          z-index: 2;\n        }\n        .form-signin input[type=\"text\"] {\n          margin-bottom: -1px;\n          border-bottom-right-radius: 0;\n          border-bottom-left-radius: 0;\n        }\n        .form-signin input[type=\"password\"] {\n          margin-bottom: 10px;\n          border-top-left-radius: 0;\n          border-top-right-radius: 0;\n        }\n    "]
+                        styles: ["\n        body {\n          padding-top: 40px;\n          padding-bottom: 40px;\n          background-color: #eee;\n        }\n        \n        .form-signin {\n          max-width: 330px;\n          padding: 15px;\n          margin: 0 auto;\n        }\n        .form-signin .form-signin-heading,\n        .form-signin .checkbox {\n          margin-bottom: 10px;\n        }\n        .form-signin .checkbox {\n          font-weight: normal;\n        }\n        .form-signin .form-control {\n          position: relative;\n          height: auto;\n          -webkit-box-sizing: border-box;\n             -moz-box-sizing: border-box;\n                  box-sizing: border-box;\n          padding: 10px;\n          font-size: 16px;\n        }\n        .form-signin .form-control:focus {\n          z-index: 2;\n        }\n        .form-signin input[type=\"text\"] {\n          margin-bottom: -1px;\n          border-bottom-right-radius: 0;\n          border-bottom-left-radius: 0;\n        }\n        .form-signin input[type=\"Password\"] {\n          margin-bottom: 10px;\n          border-top-left-radius: 0;\n          border-top-right-radius: 0;\n        }\n    "]
                     }), 
                     __metadata('design:paramtypes', [user_service_1.UserService, cookie_service_1.CookieService, router_1.Router])
                 ], LogInComponent);

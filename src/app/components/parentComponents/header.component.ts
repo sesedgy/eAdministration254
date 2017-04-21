@@ -13,7 +13,7 @@ export class HeaderComponent{
                 private router: Router){}
 
     logOut(){
-        this.cookieService.deleteCookie();
-        this.router.navigate(['login']);
+        this.cookieService.deleteAllCookie();
+        this.router.navigate(['Login']);
     }
 }

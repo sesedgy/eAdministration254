@@ -30,8 +30,8 @@ System.register(["@angular/core", "../../services/cookie.service", "@angular/rou
                     this.router = router;
                 }
                 HeaderComponent.prototype.logOut = function () {
-                    this.cookieService.deleteCookie();
-                    this.router.navigate(['login']);
+                    this.cookieService.deleteAllCookie();
+                    this.router.navigate(['Login']);
                 };
                 HeaderComponent = __decorate([
                     core_1.Component({
