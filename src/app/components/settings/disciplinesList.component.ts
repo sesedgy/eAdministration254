@@ -4,9 +4,7 @@ import {Response} from "@angular/http";
 import {Discipline} from "../../models/dicipline";
 import {GuidService} from "../../services/guid.service";
 import {CookieService} from "../../services/cookie.service";
-import {Faculty} from "../../models/faculty";
 import {FacultyService} from "../../services/api/faculty.service";
-import {forEach} from "@angular/router/src/utils/collection";
 import {SelectItem} from "primeng/components/common/api";
 declare let $:any;
 
@@ -71,6 +69,11 @@ export class DisciplinesListComponent implements OnInit{
     }
 
     editRow(discipline: Discipline){
+        this.facultiesList.forEach(function (item) {
+            if(item.label === discipline.Faculty.Name){
+                discipline.Faculty = item.value
+            }
+        });
         this.discipline = discipline;
         this.discipline.WhoUpdate = this.cookieService.getCurrentUserLogin();
         this.disciplineBeforeChanges = discipline;

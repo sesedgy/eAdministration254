@@ -27,11 +27,13 @@
         "assets/css/font-awesome.min.css",
         "assets/css/fonts.googleapis.com.css",
 
+        "../node_modules/primeng/resources/themes/omega/theme.css",
+        "../node_modules/primeng/resources/primeng.min.css",
+
         "assets/css/ace.min.css",
         "assets/css/ace-skins.min.css",
         "assets/css/ace-rtl.min.css",
-        "../node_modules/primeng/resources/themes/omega/theme.css",
-        "../node_modules/primeng/resources/primeng.min.css",
+
         "styles.css"
 
       ],

@@ -1,16 +1,439 @@
 <div class="page-header">
     <h1>
-        Dashboard
-        <small>
-            <i class="ace-icon fa fa-angle-double-right"></i>
-            overview &amp; stats
-        </small>
+        Профиль
     </h1>
 </div><!-- /.page-header -->
 
 <div class="row">
     <div class="col-xs-12">
-        <!-- PAGE CONTENT BEGINS -->
-        <!-- PAGE CONTENT ENDS -->
+        <div class="col-xs-12 col-sm-3 center">
+            <span class="profile-picture">
+                <img class="editable img-responsive" alt="Фото отсутствует" id="photo" src="{{photoSrc}}">
+            </span>
+            <!--<row>-->
+                <!--<div class="col-xs-6 col-xs-offset-3">-->
+                    <!--<button class="btn btn-sm btn-block btn-success" (click)="changeEmail()"></button>-->
+                <!--</div>-->
+                <!--<div class="col-xs-6 col-xs-offset-3">-->
+                    <!--<button class="btn btn-sm btn-block btn-success" (click)="changePassword()"></button>-->
+                <!--</div>-->
+            <!--</row>-->
+        </div>
+        <div class="col-xs-12 col-sm-9">
+            <div class="tabbable">
+                <ul class="nav nav-tabs" id="myTab">
+                    <li class="active">
+                        <a data-toggle="tab" href="#personalInfo">
+                            <i class="blue ace-icon fa fa-address-card-o bigger-120"></i>
+                            Личная информация
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#documents">
+                            <i class="blue ace-icon fa fa-briefcase bigger-120"></i>
+                            Документы
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#workInfo">
+                            <i class="blue ace-icon fa fa-users bigger-120"></i>
+                            Рабочая информация
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+
+                    <div id="personalInfo" class="tab-pane fade in active">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h4 class="header blue bolder smaller">Основная информация</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-md-3">
+                                <div class="form-group">
+                                    <label for="lastName">Фамилия</label>
+                                    <div>
+                                        <input id="lastName" name="lastName" class="col-xs-12" type="text" [(ngModel)]="employee.LastName"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-3">
+                                <div class="form-group">
+                                    <label for="firstName">Имя</label>
+                                    <div>
+                                        <input id="firstName" name="firstName" class="col-xs-12" type="text" [(ngModel)]="employee.FirstName"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-3">
+                                <div class="form-group">
+                                    <label for="middleName">Отчество</label>
+                                    <div>
+                                        <input id="middleName" name="middleName" class="col-xs-12" type="text" [(ngModel)]="employee.MiddleName"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-md-3">
+                                <div class="form-group">
+                                    <label for="birthDate">Дата рождения</label>
+                                    <div>
+                                        <input id="birthDate" name="birthDate" class="col-xs-12" type="date" [(ngModel)]="employee.BirthDate"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-3">
+                                <div class="form-group">
+                                    <label for="mobilePhone">Мобильный телефон</label>
+                                    <div>
+                                        <input id="mobilePhone" name="mobilePhone" class="col-xs-12 input-mask-phone" type="text" [(ngModel)]="employee.MobilePhone"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-3">
+                                <div class="form-group">
+                                    <label for="citizenship">Гражданство</label>
+                                    <div>
+                                        <select id="citizenship" name="citizenship" class="col-xs-12" type="text" [(ngModel)]="employee.Citizenship">
+                                            <option value=""></option>
+                                            <option value="РФ">РФ</option>
+                                            <option value="Беларуссия">Беларуссия</option>
+                                            <option value="Украина">Украина</option>
+                                            <option value="Другое">Другое</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-3">
+                                <div class="form-group">
+                                    <label for="sex">Пол</label>
+                                    <div>
+                                        <select id="sex" name="sex" class="col-xs-12" type="text" [(ngModel)]="employee.Sex">
+                                            <option value=""></option>
+                                            <option value="Мусжкой">Мужской</option>
+                                            <option value="Женский">Женский</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6">
+                                <h4 class="header blue bolder smaller">Данные аккаунта</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-8">
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <input id="email" name="email" class="col-xs-12" type="email" [(ngModel)]="user.Email" placeholder="Email"/>
+                                    </div>
+                                    <button class="btn btn-success btn-sm" (click)="changeEmail()">
+                                        <i class="ace-icon fa fa-floppy-o bigger-110" aria-hidden="true"></i>
+                                        Изменить email
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="hr"></div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-8">
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <input id="login" name="login" class="col-xs-12" type="text" [(ngModel)]="user.Login" placeholder="Логин"/>
+                                    </div>
+                                    <button class="btn btn-success btn-sm" (click)="changeLogin()">
+                                        <i class="ace-icon fa fa-floppy-o bigger-110" aria-hidden="true"></i>
+                                        Измнить логин
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="hr"></div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-8">
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <input id="newPassword" name="newPassword" class="col-xs-12" type="password" [(ngModel)]="newPassword" placeholder="Пароль"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <input id="newPasswordRepeat" name="newPasswordRepeat" class="col-xs-12" type="password" [(ngModel)]="newPasswordRepeat" placeholder="Повторите пароль"/>
+                                    </div>
+                                    <button class="btn btn-success btn-sm" (click)="changePassword()">
+                                        <i class="ace-icon fa fa-floppy-o bigger-110" aria-hidden="true"></i>
+                                        Изменить пароль
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="documents" class="tab-pane fade">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h4 class="header blue bolder smaller">Паспортные данные</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4 col-md-3">
+                                <div class="form-group">
+                                    <label for="passportSeries">Серия</label>
+                                    <div>
+                                        <input id="passportSeries" name="passportSeries" class="col-xs-12" type="text" [(ngModel)]="employee.PassportSeries"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-md-3">
+                                <div class="form-group">
+                                    <label for="passportNumber">Номер</label>
+                                    <div>
+                                        <input id="passportNumber" name="passportNumber" class="col-xs-12" type="text" [(ngModel)]="employee.PassportNumber"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-md-3">
+                                <div class="form-group">
+                                    <label for="passportDate">Дата выдачи</label>
+                                    <div>
+                                        <input id="passportDate" name="passportDate" class="col-xs-12" type="date" [(ngModel)]="employee.PassportDate"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12">
+                                <div class="form-group">
+                                    <label for="passportIssueOrg">Кем выдан</label>
+                                    <div>
+                                        <input id="passportIssueOrg" name="passportIssueOrg" class="col-xs-12" type="text" [(ngModel)]="employee.PassportIssueOrg"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h6 class="header blue bolder smaller">Адрес прописки</h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-md-3">
+                                <div class="form-group">
+                                    <label for="countryRegistration">Страна</label>
+                                    <div>
+                                        <select id="countryRegistration" name="countryRegistration"
+                                                class="col-xs-12" [(ngModel)]="employee.CountryRegistration">
+                                            <option value=""></option>
+                                            <option value="Россия">Россия</option>
+                                            <option value="Абхазия">Абхазия</option>
+                                            <option value="Азербайджан">Азербайджан</option>
+                                            <option value="Беларусия">Беларусия</option>
+                                            <option value="Грузия">Грузия</option>
+                                            <option value="Казахстан">Казахстан</option>
+                                            <option value="Украина">Украина</option>
+                                            <option value="Узбекистан">Узбекистан</option>
+                                            <option value="Другое">Другое</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-3">
+                                <div class="form-group">
+                                    <label for="cityRegistration">Город</label>
+                                    <div>
+                                        <input id="cityRegistration" name="cityRegistration" class="col-xs-12"
+                                               type="text" [(ngModel)]="employee.CityRegistration"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-md-4">
+                                <div class="form-group">
+                                    <label for="regionRegistration">Область</label>
+                                    <div>
+                                        <input id="regionRegistration" name="regionRegistration" class="col-xs-12"
+                                               type="text" [(ngModel)]="employee.RegionRegistration"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-4">
+                                <div class="form-group">
+                                    <label for="districtRegistration">Район</label>
+                                    <div>
+                                        <input id="districtRegistration" name="districtRegistration" class="col-xs-12"
+                                               type="text" [(ngModel)]="employee.DistrictRegistration"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-4">
+                                <div class="form-group">
+                                    <label for="localityRegistration">Населенный пункт</label>
+                                    <div>
+                                        <input id="localityRegistration" name="localityRegistration" class="col-xs-12"
+                                               type="text" [(ngModel)]="employee.LocalityRegistration"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-md-2">
+                                <div class="form-group">
+                                    <label for="streetRegistration">Улица</label>
+                                    <div>
+                                        <input id="streetRegistration" name="streetRegistration" class="col-xs-12"
+                                               type="text" [(ngModel)]="employee.StreetRegistration"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-2">
+                                <div class="form-group">
+                                    <label for="houseRegistration">Дом</label>
+                                    <div>
+                                        <input id="houseRegistration" name="houseRegistration" class="col-xs-12" type="text" [(ngModel)]="employee.HouseRegistration"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-2">
+                                <div class="form-group">
+                                    <label for="buildingRegistration">Строение</label>
+                                    <div>
+                                        <input id="buildingRegistration" name="buildingRegistration" class="col-xs-12" type="text" [(ngModel)]="employee.BuildingRegistration"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-2">
+                                <div class="form-group">
+                                    <label for="housingRegistration">Корпус</label>
+                                    <div>
+                                        <input id="housingRegistration" name="housingRegistration" class="col-xs-12" type="text" [(ngModel)]="employee.HousingRegistration"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-2">
+                                <div class="form-group">
+                                    <label for="flatRegistration">Квартира</label>
+                                    <div>
+                                        <input id="flatRegistration" name="flatRegistration" class="col-xs-12" type="text" [(ngModel)]="employee.FlatRegistration"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-2">
+                                <div class="form-group">
+                                    <label for="indexRegistration">Индекс</label>
+                                    <div>
+                                        <input id="indexRegistration" name="indexRegistration" class="col-xs-12" type="text" [(ngModel)]="employee.IndexRegistration"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h4 class="header blue bolder smaller">Документ об образовании</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4 col-md-3">
+                                <div class="form-group">
+                                    <label for="seriesEducationDocument">Серия</label>
+                                    <div>
+                                        <input id="seriesEducationDocument" name="seriesEducationDocument" class="col-xs-12" type="text" [(ngModel)]="employee.SeriesEducationDocument"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-md-3">
+                                <div class="form-group">
+                                    <label for="numberEducationDocument">Номер</label>
+                                    <div>
+                                        <input id="numberEducationDocument" name="numberEducationDocument" class="col-xs-12" type="text" [(ngModel)]="employee.NumberEducationDocument"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-md-3">
+                                <div class="form-group">
+                                    <label for="dateEducationDocument">Дата выдачи</label>
+                                    <div>
+                                        <input id="dateEducationDocument" name="dateEducationDocument" class="col-xs-12" type="date" [(ngModel)]="employee.DateEducationDocument"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12">
+                                <div class="form-group">
+                                    <label for="whoGiveEducationDocument">Кем выдан</label>
+                                    <div>
+                                        <input id="whoGiveEducationDocument" name="whoGiveEducationDocument" class="col-xs-12" type="text" [(ngModel)]="employee.WhoGiveEducationDocument"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h4 class="header blue bolder smaller">Другие документы</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-md-4">
+                                <div class="form-group">
+                                    <label for="INN">ИНН</label>
+                                    <div>
+                                        <input id="INN" name="INN" class="col-xs-12" type="text" [(ngModel)]="employee.INN"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-4">
+                                <div class="form-group">
+                                    <label for="SNILS">СНИЛС</label>
+                                    <div>
+                                        <input id="SNILS" name="SNILS" class="col-xs-12" type="text" [(ngModel)]="employee.SNILS"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div id="workInfo" class="tab-pane fade">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h4 class="header blue bolder smaller">Сведения о трудоустройстве</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-md-4">
+                                <div class="form-group">
+                                    <label for="department">Отдел</label>
+                                    <div>
+                                        <input id="department" name="department" class="col-xs-12" type="text" [(ngModel)]="employee.Department.Name"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-4">
+                                <div class="form-group">
+                                    <label for="position">Должность</label>
+                                    <div>
+                                        <input id="position" name="position" class="col-xs-12" type="text" [(ngModel)]="employee.Position"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-4">
+                                <div class="form-group">
+                                    <label for="beginDate">Дата начала работы</label>
+                                    <div>
+                                        <input id="beginDate" name="beginDate" class="col-xs-12" type="date" [(ngModel)]="employee.BeginDate"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div><!-- /.col -->
 </div><!-- /.row -->
