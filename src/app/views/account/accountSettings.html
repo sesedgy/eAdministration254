@@ -133,7 +133,7 @@
                                         <input id="email" name="email" class="col-xs-12" type="email" [(ngModel)]="user.Email" placeholder="Email"/>
                                     </div>
                                     <button class="btn btn-success btn-sm" (click)="changeEmail()">
-                                        <i class="ace-icon fa fa-floppy-o bigger-110" aria-hidden="true"></i>
+                                        <i class="ace-icon fa fa-pencil bigger-130" aria-hidden="true"></i>
                                         Изменить email
                                     </button>
                                 </form>
@@ -147,8 +147,8 @@
                                         <input id="login" name="login" class="col-xs-12" type="text" [(ngModel)]="user.Login" placeholder="Логин"/>
                                     </div>
                                     <button class="btn btn-success btn-sm" (click)="changeLogin()">
-                                        <i class="ace-icon fa fa-floppy-o bigger-110" aria-hidden="true"></i>
-                                        Измнить логин
+                                        <i class="ace-icon fa fa-pencil bigger-130" aria-hidden="true"></i>
+                                        Изменить логин
                                     </button>
                                 </form>
                             </div>
@@ -164,9 +164,10 @@
                                         <input id="newPasswordRepeat" name="newPasswordRepeat" class="col-xs-12" type="password" [(ngModel)]="newPasswordRepeat" placeholder="Повторите пароль"/>
                                     </div>
                                     <button class="btn btn-success btn-sm" (click)="changePassword()">
-                                        <i class="ace-icon fa fa-floppy-o bigger-110" aria-hidden="true"></i>
+                                        <i class="ace-icon fa fa-pencil bigger-130" aria-hidden="true"></i>
                                         Изменить пароль
                                     </button>
+                                    <label class="red" *ngIf="isPasswordsSame">Пароли не совпадают</label>
                                 </form>
                             </div>
                         </div>
@@ -216,7 +217,7 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-12">
-                                <h6 class="header blue bolder smaller">Адрес прописки</h6>
+                                <h4 class="header blue bolder smaller">Адрес прописки</h4>
                             </div>
                         </div>
                         <div class="row">
@@ -408,10 +409,11 @@
                         <div class="row">
                             <div class="col-xs-6 col-md-4">
                                 <div class="form-group">
-                                    <label for="department">Отдел</label>
-                                    <div>
-                                        <input id="department" name="department" class="col-xs-12" type="text" [(ngModel)]="employee.Department.Name"/>
-                                    </div>
+                                    <!--TODO Раскомментить-->
+                                    <!--<label for="department">Отдел</label>-->
+                                    <!--<div>-->
+                                        <!--<input id="department" name="department" class="col-xs-12" type="text" [(ngModel)]="employee.Department.Name"/>-->
+                                    <!--</div>-->
                                 </div>
                             </div>
                             <div class="col-xs-6 col-md-4">

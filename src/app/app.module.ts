@@ -53,7 +53,7 @@ const mainRoutes: Routes =[
 
 const appRoutes: Routes =[
     { path: 'Login', component: SignInComponent, canActivate:[IsAuthGuard]},
-    { path: '', component: MainComponent, canActivate: [AuthGuard], children: mainRoutes}
+    { path: '', component: MainComponent, canActivate: [AuthGuard], children: mainRoutes},
 ];
 
 @NgModule({

@@ -24,4 +24,16 @@ export class UserService{
         return this.httpService.get('users/resetPassword/' + email, null);
     }
 
+    changeEmail(login: string, newEmail: string) {
+        return this.httpService.get('users/changeEmail/' + login + "&" + newEmail, this.cookieService.createAuthorizationHeader());
+    }
+
+    changeLogin(email: string, newLogin: string) {
+        return this.httpService.get('users/changeLogin/' + email + "&" + newLogin, this.cookieService.createAuthorizationHeader());
+    }
+
+    changePassword(login: string, newPassword: string) {
+        return this.httpService.get('users/changePassword/' + login + "&" + newPassword, this.cookieService.createAuthorizationHeader());
+    }
+
 }
