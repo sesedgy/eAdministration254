@@ -8,6 +8,10 @@ export class UserService{
 
     constructor(private httpService: HttpService, private cookieService: CookieService) { }
 
+    getUserInfo(userName: string) {
+        return this.httpService.get('users/getUserInfo/' + userName, this.cookieService.createAuthorizationHeader());
+    }
+
     authorization(login: string, password: string) {
         return this.httpService.get('users/Authorization/' + login + '&' + password, null);
     }

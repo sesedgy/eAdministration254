@@ -1,6 +1,10 @@
 <div class="page-header">
     <h1>
-        Профиль
+        Сотрудники
+        <small>
+            <i class="ace-icon fa fa-angle-double-right"></i>
+            Личная карточка сотрудника
+        </small>
     </h1>
 </div><!-- /.page-header -->
 
@@ -15,17 +19,42 @@
                 <div class="inline position-relative">{{name}}</div>
             </div>
             <div class="hr hr12 dotted"></div>
-            <button class="btn width-80 btn-sm btn-success" (click)="saveChanges()">
-                <i class="ace-icon fa fa-floppy-o bigger-120"></i>
-                <span class="bigger-110">Сохранить изменения</span>
-            </button>
+            <div [hidden]="isCreateNew">
+                <button class="btn width-80 btn-sm btn-success" (click)="saveChanges()"
+                        [disabled]="!((lastName.valid && firstName.valid && emailValid.valid && userNameValid.valid && (passwordValid.valid || !isCreateNew))
+                            && (department.valid && !(isCreateNew && department.valid && department.pristine)))">
+                    <i class="ace-icon fa fa-floppy-o bigger-120"></i>
+                    <span class="bigger-110">Сохранить изменения</span>
+                </button>
+                <div class="hr hr12 dotted"></div>
+                <button class="btn width-80 btn-sm btn-danger" (click)="deleteRecord()">
+                    <i class="ace-icon fa fa-trash bigger-120"></i>
+                    <span class="bigger-110">Удалить</span>
+                </button>
+            </div>
+            <div [hidden]="!isCreateNew">
+                <button class="btn width-80 btn-sm btn-success" (click)="createNew()"
+                        [disabled]="!((lastName.valid && firstName.valid && emailValid.valid && userNameValid.valid && !(isCreateNew && roleValid.pristine) && (passwordValid.valid || !isCreateNew))
+                            && (department.valid && !(isCreateNew && department.valid && department.pristine)))">
+                    <i class="ace-icon fa fa-plus bigger-120"></i>
+                    <span class="bigger-110">Создать</span>
+                </button>
+            </div>
+            <div [hidden]="((lastName.valid && firstName.valid && emailValid.valid && userNameValid.valid && !(isCreateNew && roleValid.pristine) && (passwordValid.valid || !isCreateNew))
+                            && (department.valid && !(isCreateNew && department.valid && department.pristine)))">
+                <div class="hr hr12 dotted"></div>
+                <div class="well">
+                    <h4 class="red smaller lighter">Необходимо заполнить поля отмеченные красным</h4>
+                </div>
+            </div>
         </div>
         <div class="col-xs-12 col-sm-9">
             <div class="tabbable">
                 <ul class="nav nav-tabs" id="myTab">
                     <li class="active">
                         <a data-toggle="tab" href="#personalInfo">
-                            <i class="blue ace-icon fa fa-address-card-o bigger-120"></i>
+                            <i class="ace-icon fa fa-address-card-o bigger-120"
+                               [ngClass]="(lastName.valid && firstName.valid && emailValid.valid && userNameValid.valid && !(isCreateNew && roleValid.pristine) && (passwordValid.valid || !isCreateNew))? 'blue':'red'"></i>
                             Личная информация
                         </a>
                     </li>
@@ -37,7 +66,8 @@
                     </li>
                     <li>
                         <a data-toggle="tab" href="#workInfo">
-                            <i class="blue ace-icon fa fa-users bigger-120"></i>
+                            <i class="ace-icon fa fa-users bigger-120"
+                               [ngClass]="(department.valid && !(isCreateNew && department.valid && department.pristine)) ? 'blue':'red'"></i>
                             Рабочая информация
                         </a>
                     </li>
@@ -53,18 +83,18 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-6 col-md-3">
-                                <div class="form-group">
+                                <div class="form-group" [ngClass]="lastName.valid ? '':'has-error'">
                                     <label for="lastName">Фамилия</label>
                                     <div>
-                                        <input id="lastName" name="lastName" class="col-xs-12" type="text" [(ngModel)]="employee.LastName"/>
+                                        <input id="lastName" name="lastName" class="col-xs-12" type="text" [(ngModel)]="employee.LastName" #lastName="ngModel" required/>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xs-6 col-md-3">
-                                <div class="form-group">
+                                <div class="form-group" [ngClass]="firstName.valid ? '':'has-error'">
                                     <label for="firstName">Имя</label>
                                     <div>
-                                        <input id="firstName" name="firstName" class="col-xs-12" type="text" [(ngModel)]="employee.FirstName"/>
+                                        <input id="firstName" name="firstName" class="col-xs-12" type="text" [(ngModel)]="employee.FirstName" #firstName="ngModel" required/>
                                     </div>
                                 </div>
                             </div>
@@ -112,7 +142,7 @@
                                 <div class="form-group">
                                     <label for="sex">Пол</label>
                                     <div>
-                                        <select id="sex" name="sex" class="col-xs-12" type="text" [(ngModel)]="employee.Sex">
+                                        <select id="sex" name="sex" class="col-xs-12" type="text" [(ngModel)]="employee.Sex" required>
                                             <option value=""></option>
                                             <option value="Мусжкой">Мужской</option>
                                             <option value="Женский">Женский</option>
@@ -128,57 +158,50 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-xs-12 col-md-8">
-                                <form class="form-inline">
-                                    <div class="form-group">
-                                        <input id="email" name="email" class="col-xs-12" type="email" [(ngModel)]="email" placeholder="Email"/>
+                            <div class="col-xs-12">
+                                <form class="form-horizontal">
+                                    <div class="form-group" [ngClass]="emailValid.valid ? '':'has-error'">
+                                        <div class="col-xs-12">
+                                            <input name="email" class="col-xs-12 col-md-6 col-lg-3" type="email" [(ngModel)]="email" placeholder="Email" #emailValid="ngModel" [readonly]="!isCreateNew" required/>
+                                        </div>
                                     </div>
-                                    <button class="btn btn-success btn-sm" (click)="changeEmail()">
-                                        <i class="ace-icon fa fa-pencil bigger-130" aria-hidden="true"></i>
-                                        Изменить email
-                                    </button>
                                 </form>
                             </div>
                         </div>
                         <div class="hr"></div>
                         <div class="row">
-                            <div class="col-xs-12 col-md-8">
-                                <form class="form-inline">
-                                    <div class="form-group">
-                                        <input id="login" name="login" class="col-xs-12" type="text" [(ngModel)]="userName" placeholder="Логин"/>
+                            <div class="col-xs-12">
+                                <form class="form-horizontal">
+                                    <div class="form-group" [ngClass]="userNameValid.valid ? '':'has-error'">
+                                        <div class="col-xs-12">
+                                            <input name="userName" class="col-xs-12 col-md-6 col-lg-3" type="text" [(ngModel)]="userName" placeholder="Логин" #userNameValid="ngModel" [readonly]="!isCreateNew" required/>
+                                        </div>
                                     </div>
-                                    <button class="btn btn-success btn-sm" (click)="changeLogin()">
-                                        <i class="ace-icon fa fa-pencil bigger-130" aria-hidden="true"></i>
-                                        Изменить логин
-                                    </button>
                                 </form>
                             </div>
                         </div>
-                        <div class="hr"></div>
-                        <div class="row">
-                            <div class="col-xs-12 col-md-8">
-                                <form class="form-inline">
-                                    <div class="form-group">
-                                        <input id="newPassword" name="newPassword" class="col-xs-12" type="password" [(ngModel)]="newPassword" placeholder="Пароль"/>
+                        <div class="hr" [hidden]="!isCreateNew"></div>
+                        <div class="row" [hidden]="!isCreateNew">
+                            <div class="col-xs-12">
+                                <form class="form-horizontal">
+                                    <div class="form-group" [ngClass]="passwordValid.valid ? '':'has-error'">
+                                        <div class="col-xs-12">
+                                            <input name="newPassword" class="col-xs-12 col-md-6 col-lg-3" type="password" [(ngModel)]="newPassword" placeholder="Пароль" #passwordValid="ngModel" required/>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <input id="newPasswordRepeat" name="newPasswordRepeat" class="col-xs-12" type="password" [(ngModel)]="newPasswordRepeat" placeholder="Повторите пароль"/>
-                                    </div>
-                                    <button class="btn btn-success btn-sm" (click)="changePassword()">
-                                        <i class="ace-icon fa fa-pencil bigger-130" aria-hidden="true"></i>
-                                        Изменить пароль
-                                    </button>
-                                    <label class="red" *ngIf="isPasswordsSame">Пароли не совпадают</label>
                                 </form>
                             </div>
                         </div>
                         <div class="hr"></div>
                         <div class="row">
                             <div class="col-xs-12 col-md-4">
-                                <div class="form-group">
-                                    <label for="role">Роль</label>
+                                <div class="form-group" [ngClass]="!(isCreateNew && roleValid.pristine) ? '':'has-error'">
+                                    <label>Роль</label>
                                     <div>
-                                        <input id="role" name="role" class="col-xs-12" type="text" [(ngModel)]="role" readonly/>
+                                        <select name="role" class="col-xs-12" type="text" [(ngModel)]="role" #roleValid="ngModel">
+                                            <option value="IsWorker">Сотрудник</option>
+                                            <option value="IsAdmin">Администратор</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -421,11 +444,11 @@
                         <div class="row">
                             <div class="col-xs-6 col-md-4">
                                 <div class="form-group">
-                                    <!--TODO Раскомментить-->
-                                    <!--<label for="department">Отдел</label>-->
-                                    <!--<div>-->
-                                        <!--<input id="department" name="department" class="col-xs-12" type="text" [(ngModel)]="employee.Department.Name"/>-->
-                                    <!--</div>-->
+                                    <label for="department">Отдел</label>
+                                    <div [ngStyle]="{'border': (department.valid && !(isCreateNew && department.valid && department.pristine))? '':'1px solid red'}">
+                                        <p-dropdown id="department" [options]="departmentsList" [style]="{'width': '100%'}" [(ngModel)]="employee.Department"
+                                                    [filter]="filter" #department="ngModel"  [required]="true"></p-dropdown>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-xs-6 col-md-4">

@@ -1,9 +1,9 @@
 <div class="page-header">
     <h1>
-        Преподаватели
+        Сотрудники
         <small>
             <i class="ace-icon fa fa-angle-double-right"></i>
-            Список преподавателей
+            Список сотрудников
         </small>
     </h1>
 </div><!-- /.page-header -->
@@ -11,12 +11,12 @@
 <div class="row">
     <div class="col-xs-12">
         <div>
-            <p-dataTable #dt [value]="teachersList"
+            <p-dataTable #dt [value]="employeesList"
                          [rows]="30" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[30,50,100]"
                          [globalFilter]="gb" resizableColumns="true">
                 <p-header>
                     <div class="ui-helper-clearfix">
-                        <h4 style="float: left">Преподаватели</h4>
+                        <h4 style="float: left">Сотрудники</h4>
                         <input style="float: right" #gb type="text" pInputText size="50" placeholder="Глобальный фильтр">
                     </div>
                 </p-header>
@@ -34,21 +34,15 @@
                         <p-dropdown [options]="[{label: '', value: null},{label: 'Мужской', value: 'Мужской'}, {label: 'Женский', value: 'Женский'}]" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-dropdown>
                     </ng-template>
                 </p-column>
-                <p-column field="Faculty.Name" header="Факультет" [filter]="true" [style]="{'overflow':'visible'}" filterMatchMode="equals">
+                <p-column field="Department.Name" header="Отдел" [filter]="true" [style]="{'overflow':'visible'}" filterMatchMode="equals">
                     <ng-template pTemplate="filter" let-col>
-                        <p-dropdown [options]="facultiesList" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-dropdown>
-                    </ng-template>
-                </p-column>
-                <p-column field="MobilePhone" header="Телефон" [filter]="true" [style]="{'overflow':'visible'}" filterMatchMode="equals"></p-column>
-                <p-column field="Scientist" header="Ученая степень" [filter]="true" [style]="{'overflow':'visible'}" filterMatchMode="equals">
-                    <ng-template pTemplate="filter" let-col>
-                        <p-dropdown [options]="academicDegreeList" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-dropdown>
+                        <p-dropdown [options]="departmentsList" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-dropdown>
                     </ng-template>
                 </p-column>
                 <p-column styleClass="col-button" [style]="{'width':'5%'}">
                     <ng-template let-item="rowData" pTemplate="body">
                         <div class="action-buttons">
-                            <a class="blue" routerLink="{{item.TeacherId}}">
+                            <a class="blue" routerLink="{{item.EmployeeId}}">
                                 <i class="ace-icon fa fa-search-plus bigger-130"></i>
                             </a>
                         </div>

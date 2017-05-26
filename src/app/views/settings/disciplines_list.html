@@ -13,7 +13,7 @@
         <div>
             <p-dataTable #dt [value]="disciplineList"
                          [rows]="30" [paginator]="true" [pageLinks]="5" [rowsPerPageOptions]="[30,50,100]"
-                         [globalFilter]="gb" resizableColumns="true">
+                         [globalFilter]="gb" resizableColumns="true" (onFilter)="handleFilter(dt)">
                 <p-header>
                     <div class="ui-helper-clearfix">
                         <h4 style="float: left">Дисциплины</h4>

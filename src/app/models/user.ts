@@ -1,6 +1,6 @@
 export class User {
 
-    public Id: string;
+    public UserId: string;
     public IdClient: string;
     public Login: string;
     public Password: string;
@@ -9,9 +9,9 @@ export class User {
     public Role: string;
     public IsOnline: string;
     public WhoUpdate: string;
-    public CreatedDate: string;
-    public UpdateDate: string;
-    public LastActivityDate: string;
+    public CreatedDate: Date;
+    public UpdateDate: Date;
+    public LastActivityDate: Date;
 
 
     constructor() {

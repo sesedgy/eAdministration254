@@ -1,9 +1,10 @@
 import {User} from "./user";
-import {Department} from "./department";
+import {Faculty} from "./faculty";
+import {TeachersWork} from "./teachersWork";
 
-export class Employee{
+export class Teacher{
 
-    public EmployeeId: string;
+    public TeacherId: string;
     public User: User;
     public LastName: string;
     public FirstName: string;
@@ -36,10 +37,13 @@ export class Employee{
     public DateEducationDocument: Date;
     public WhoGiveEducationDocument: string;
 
-    public Department: Department;                  //Отдел
-    public Position: string;                        //Должность
+    public Faculty: Faculty;
+    public Speciality: string;
+    public Scientist: string;
     public BeginDate: Date;                         //Дата начала работы
     public EndDate: Date;
+
+    public TeachersWorks: TeachersWork[];
 
     public SalaryPerHour: string;                   //Почасовая ставка
     public PhotoPath: string;

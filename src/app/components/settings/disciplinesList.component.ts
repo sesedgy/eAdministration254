@@ -6,6 +6,7 @@ import {GuidService} from "../../services/guid.service";
 import {CookieService} from "../../services/cookie.service";
 import {FacultyService} from "../../services/api/faculty.service";
 import {SelectItem} from "primeng/components/common/api";
+import {Faculty} from "../../models/faculty";
 declare let $:any;
 
 @Component({
@@ -26,7 +27,6 @@ export class DisciplinesListComponent implements OnInit{
     private isAddRow: boolean;
     private modalHeader: string;
     private discipline: Discipline = new Discipline();
-    private disciplineBeforeChanges: Discipline;
 
 
     ngOnInit(){
@@ -59,12 +59,15 @@ export class DisciplinesListComponent implements OnInit{
     }
 
     addRowSave(){
-        let disciplineList = this.disciplineList;
         this.discipline.CreatedDate = new Date();
         this.disciplineService.create(this.discipline).subscribe(() => {
-            disciplineList.push(this.discipline);
-            this.rowCount++;
+            $.gritter.add({
+                title: 'Сохранение завершено',
+                text: 'Данные успешно добавлены',
+                class_name: 'gritter-success'
+            });
             $("#modalWindow").modal('hide');
+            this.ngOnInit();
         });
     }
 
@@ -76,29 +79,41 @@ export class DisciplinesListComponent implements OnInit{
         });
         this.discipline = discipline;
         this.discipline.WhoUpdate = this.cookieService.getCurrentUserLogin();
-        this.disciplineBeforeChanges = discipline;
         this.isAddRow = false;
         this.modalHeader = "Изменить запись";
         $("#modalWindow").modal('show');
     }
 
     editRowSave(){
-        let disciplineList = this.disciplineList;
         this.discipline.UpdatedDate = new Date();
+        let facultyId = this.discipline.Faculty.FacultyId;
+        this.discipline.Faculty = new Faculty();
+        this.discipline.Faculty.FacultyId = facultyId;
         this.disciplineService.update(this.discipline).subscribe(() => {
-            let index = disciplineList.lastIndexOf(this.disciplineBeforeChanges);
-            disciplineList[index] = this.discipline;
+            $.gritter.add({
+                title: 'Сохранение завершено',
+                text: 'Данные успешно изменены',
+                class_name: 'gritter-success'
+            });
             $("#modalWindow").modal('hide');
+            this.ngOnInit();
         });
     }
 
     deleteRow(discipline: Discipline){
-        let disciplineList = this.disciplineList;
         this.disciplineService.delete(discipline.DisciplineId).subscribe(() => {
-            let index = disciplineList.lastIndexOf(discipline);
-            disciplineList.splice(index , 1);
-            this.rowCount--;
+            $.gritter.add({
+                title: 'Сохранение завершено',
+                text: 'Данные успешно удалены',
+                class_name: 'gritter-success'
+            });
+            this.ngOnInit();
         });
     }
+
+    handleFilter(dataTable){
+        this.rowCount =  dataTable.totalRecords;
+    }
+
 
 }

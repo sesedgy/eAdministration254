@@ -4,45 +4,46 @@ import {FacultyService} from "../../services/api/faculty.service";
 import {Faculty} from "../../models/faculty";
 import {GuidService} from "../../services/guid.service";
 import {CookieService} from "../../services/cookie.service";
+import {Department} from "../../models/department";
+import {DepartmentService} from "../../services/api/department.service";
 declare let $:any;
 
 @Component({
-    selector: 'faculties',
-    templateUrl: './../../views/settings/faculties_list.html'
+    selector: 'departmentsList',
+    templateUrl: './../../views/settings/departments_list.html'
 })
 
-export class FacultiesListComponent implements OnInit{
+export class DepartmentsListComponent implements OnInit{
 
-    private facultyList: Faculty[];
+    private departmentList: Department[];
     private rowCount: number;
     private isAddRow: boolean;
     private modalHeader: string;
-    private faculty: Faculty = new Faculty();
+    private department: Department = new Department();
 
-    constructor(private facultyService: FacultyService,
+    constructor(private departmentService: DepartmentService,
                 private guidService: GuidService,
                 private cookieService: CookieService){}
 
     ngOnInit(){
-        this.facultyService.getAll().subscribe((response:Response) => {
-            this.facultyList = response.json();
-            this.rowCount = this.facultyList.length;
+        this.departmentService.getAll().subscribe((response:Response) => {
+            this.departmentList = response.json();
+            this.rowCount = this.departmentList.length;
         });
-
     }
 
     addRow(){
-        this.faculty = new Faculty();
-        this.faculty.FacultyId = this.guidService.createGuid();
-        this.faculty.WhoUpdate = this.cookieService.getCurrentUserLogin();
+        this.department = new Department();
+        this.department.DepartmentId = this.guidService.createGuid();
+        this.department.WhoUpdate = this.cookieService.getCurrentUserLogin();
         this.isAddRow = true;
         this.modalHeader = "Добавить запись";
         $("#modalWindow").modal('show');
     }
 
     addRowSave(){
-        this.faculty.CreatedDate = new Date();
-        this.facultyService.create(this.faculty).subscribe(() => {
+        this.department.CreatedDate = new Date();
+        this.departmentService.create(this.department).subscribe(() => {
             $.gritter.add({
                 title: 'Сохранение завершено',
                 text: 'Данные успешно добавлены',
@@ -53,17 +54,17 @@ export class FacultiesListComponent implements OnInit{
         });
     }
 
-    editRow(faculty: Faculty){
-        this.faculty = faculty;
-        this.faculty.WhoUpdate = this.cookieService.getCurrentUserLogin();
+    editRow(department: Department){
+        this.department = department;
+        this.department.WhoUpdate = this.cookieService.getCurrentUserLogin();
         this.isAddRow = false;
         this.modalHeader = "Изменить запись";
         $("#modalWindow").modal('show');
     }
 
     editRowSave(){
-        this.faculty.UpdatedDate = new Date();
-        this.facultyService.update(this.faculty).subscribe(() => {
+        this.department.UpdatedDate = new Date();
+        this.departmentService.update(this.department).subscribe(() => {
             $.gritter.add({
                 title: 'Сохранение завершено',
                 text: 'Данные успешно изменены',
@@ -74,8 +75,8 @@ export class FacultiesListComponent implements OnInit{
         });
     }
 
-    deleteRow(faculty: Faculty){
-        this.facultyService.delete(faculty.FacultyId).subscribe(() => {
+    deleteRow(department: Department){
+        this.departmentService.delete(department.DepartmentId).subscribe(() => {
             $.gritter.add({
                 title: 'Сохранение завершено',
                 text: 'Данные успешно удалены',
