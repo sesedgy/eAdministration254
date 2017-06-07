@@ -124,6 +124,9 @@ export class EmployeePersonalCardComponent implements OnInit, OnDestroy{
                                 case "Сотрудник":
                                     this.role = "IsWorker";
                                     break;
+                                case "Сотрудник отдела кадров":
+                                    this.role = "IsHr";
+                                    break;
                                 case "Администратор":
                                     this.role = "IsAdmin";
                                     break;

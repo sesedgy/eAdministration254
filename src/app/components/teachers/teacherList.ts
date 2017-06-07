@@ -23,6 +23,7 @@ export class TeachersListComponent implements OnInit{
     private teachersList: Teacher[];
     private facultiesList: SelectItem[];
     private academicDegreeList: SelectItem[];
+    private academicTitleList: SelectItem[];
     private rowCount: number;
 
 
@@ -44,7 +45,8 @@ export class TeachersListComponent implements OnInit{
             }
             this.facultiesList = facultiesList;
         });
-        this.academicDegreeList = [{label: "", value: null}, {label: 'Доктор наук', value: 'Доктор наук'}];
+        this.academicDegreeList = [{label: "", value: null}, {label: 'Кандидат наук', value: 'Кандидат наук'}, {label: 'Доктор наук', value: 'Доктор наук'}];
+        this.academicTitleList = [{label: "", value: null}, {label: 'Доцент', value: 'Доцент'}, {label: 'Профессор', value: 'Профессор'}];
     }
 
     addRow(){

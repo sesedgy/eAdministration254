@@ -40,9 +40,14 @@
                     </ng-template>
                 </p-column>
                 <p-column field="MobilePhone" header="Телефон" [filter]="true" [style]="{'overflow':'visible'}" filterMatchMode="equals"></p-column>
-                <p-column field="Scientist" header="Ученая степень" [filter]="true" [style]="{'overflow':'visible'}" filterMatchMode="equals">
+                <p-column field="AcademicDegree" header="Ученая степень" [filter]="true" [style]="{'overflow':'visible'}" filterMatchMode="equals">
                     <ng-template pTemplate="filter" let-col>
                         <p-dropdown [options]="academicDegreeList" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-dropdown>
+                    </ng-template>
+                </p-column>
+                <p-column field="AcademicTitle" header="Ученое звание" [filter]="true" [style]="{'overflow':'visible'}" filterMatchMode="equals">
+                    <ng-template pTemplate="filter" let-col>
+                        <p-dropdown [options]="academicTitleList" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-dropdown>
                     </ng-template>
                 </p-column>
                 <p-column styleClass="col-button" [style]="{'width':'5%'}">

@@ -71,6 +71,12 @@
                             Рабочая информация
                         </a>
                     </li>
+                    <li>
+                        <a data-toggle="tab" href="#load">
+                            <i class="ace-icon fa fa-balance-scale bigger-120"></i>
+                            Нагрузка
+                        </a>
+                    </li>
                 </ul>
 
                 <div class="tab-content">
@@ -445,17 +451,26 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-xs-6 col-md-4">
                                 <div class="form-group">
-                                    <label for="scientist">Ученая степень</label>
+                                    <label for="AcademicDegree">Ученая степень</label>
                                     <div>
-                                        <p-dropdown id="scientist" [options]="academicDegreeList" [style]="{'width': '100%'}" [(ngModel)]="teacher.Scientist"
+                                        <p-dropdown id="AcademicDegree" [options]="academicDegreeList" [style]="{'width': '100%'}" [(ngModel)]="teacher.AcademicDegree"
                                                     [filter]="filter" [required]="true"></p-dropdown>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
+                            <div class="col-xs-6 col-md-4">
+                                <div class="form-group">
+                                    <label for="AcademicTitle">Ученое звание</label>
+                                    <div>
+                                        <p-dropdown id="AcademicTitle" [options]="academicTitleList" [style]="{'width': '100%'}" [(ngModel)]="teacher.AcademicTitle"
+                                                    [filter]="filter" [required]="true"></p-dropdown>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-xs-6 col-md-4">
                                 <div class="form-group">
                                     <label for="beginDate">Дата начала работы</label>
@@ -464,6 +479,16 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <div id="load" class="tab-pane fade">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h4 class="header blue bolder smaller">Нагрузка преподавателя</h4>
+                            </div>
+                        </div>
+                        <div class="row">
                         </div>
                     </div>
                 </div>

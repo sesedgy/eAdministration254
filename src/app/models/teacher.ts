@@ -39,7 +39,8 @@ export class Teacher{
 
     public Faculty: Faculty;
     public Speciality: string;
-    public Scientist: string;
+    public AcademicDegree: string;
+    public AcademicTitle: string;
     public BeginDate: Date;                         //Дата начала работы
     public EndDate: Date;
 
