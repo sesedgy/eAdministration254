@@ -6,6 +6,7 @@ import {Router} from "@angular/router";
 import {TeacherService} from "../../services/api/teacher.service";
 import {Teacher} from "../../models/teacher";
 import {FacultyService} from "../../services/api/faculty.service";
+import {FileUploadModule} from 'primeng/primeng';
 declare let $:any;
 
 @Component({
@@ -24,6 +25,8 @@ export class TeachersListComponent implements OnInit{
     private facultiesList: SelectItem[];
     private academicDegreeList: SelectItem[];
     private academicTitleList: SelectItem[];
+    private workVolumeDoc: SelectItem[];
+    private groupTeacherDoc: SelectItem[];
     private rowCount: number;
 
 
@@ -47,11 +50,30 @@ export class TeachersListComponent implements OnInit{
         });
         this.academicDegreeList = [{label: "", value: null}, {label: 'Кандидат наук', value: 'Кандидат наук'}, {label: 'Доктор наук', value: 'Доктор наук'}];
         this.academicTitleList = [{label: "", value: null}, {label: 'Доцент', value: 'Доцент'}, {label: 'Профессор', value: 'Профессор'}];
+
+        $('.uploadData').ace_file_input({
+            no_file:'Файл не выбран ...',
+            btn_choose:'Выбрать',
+            btn_change:'Изменить',
+            droppable:false,
+            onchange:null,
+            thumbnail:false,
+            allowExt: ['xls', 'xlsx'],
+        });
     }
 
     addRow(){
         this.router.navigate(['teachers', 'new']);
     }
+
+    dataImport(){
+        $("#modalWindowImport").modal('show');
+    }
+
+    importWorkVolume(){
+
+    }
+
 
     handleFilter(dataTable){
         this.rowCount = dataTable.totalRecords;

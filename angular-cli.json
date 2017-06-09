@@ -30,6 +30,9 @@
         "../node_modules/primeng/resources/themes/omega/theme.css",
         "../node_modules/primeng/resources/primeng.min.css",
 
+        "assets/css/jquery-ui.custom.min.css",
+        "assets/css/chosen.min.css",
+
         "assets/css/ace.min.css",
         "assets/css/ace-skins.min.css",
         "assets/css/ace-rtl.min.css",
@@ -41,15 +44,21 @@
         "../node_modules/jquery/dist/jquery.min.js",
         "../node_modules/bootstrap/dist/js/bootstrap.min.js",
 
+        "assets/scripts/jquery-ui.custom.min.js",
+        "assets/scripts/jquery.ui.touch-punch.min.js",
+        "assets/scripts/chosen.jquery.min.js",
+
+        "assets/scripts/jquery.knob.min.js",
+        "assets/scripts/jquery.inputlimiter.min.js",
+        "assets/scripts/bootstrap-tag.min.js",
+
         "assets/scripts/ace-extra.min.js",
         "assets/scripts/ace-elements.min.js",
         "assets/scripts/ace.min.js",
 
         "../node_modules/gritter/js/jquery.gritter.min.js",
 
-        "../node_modules/jquery.maskedinput/src/jquery.maskedinput.js",
-        "../node_modules/bootstrap-fileinput/js/fileinput.min.js",
-        "../node_modules/bootstrap-fileinput/js/locales/ru.js"
+        "../node_modules/jquery.maskedinput/src/jquery.maskedinput.js"
     ],
       "environmentSource": "environments/environment.ts",
       "environments": {
