@@ -10,6 +10,7 @@ import {Subscription} from "rxjs";
 import {GuidService} from "../../services/guid.service";
 import {DepartmentService} from "../../services/api/department.service";
 import {Department} from "../../models/department";
+import {SelectItem} from "primeng/primeng";
 declare let $: any;
 
 @Component({
@@ -25,7 +26,7 @@ export class EmployeePersonalCardComponent implements OnInit, OnDestroy{
     private user: User;
     private photoSrc: string; //Todo
     //Справочники
-    private departmentsList: Department[];
+    private departmentsList: SelectItem[];
     //Для работы логики страницы
     private subscription: Subscription;
     private isPasswordsSame: boolean;
@@ -63,7 +64,7 @@ export class EmployeePersonalCardComponent implements OnInit, OnDestroy{
             this.isCreateNew = true;
             this.departmentService.getAll().subscribe((response:Response) => {
                 let departmentsList = [];
-                departmentsList.push({label: null, value: null});
+                departmentsList.push({label: "", value: null});
                 if (response != null) {
                     let responseJson = response.json();
                     responseJson.forEach(function (item) {

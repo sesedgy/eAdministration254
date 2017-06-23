@@ -24,9 +24,12 @@ export class TeacherPersonalCardComponent implements OnInit, OnDestroy{
     private teacherId: string;
     private teacher: Teacher;
     private user: User;
-    private photoSrc: string; //Todo
+    private photoSrc: string; //TODO
+    private dataWorkVolumeChart: any;
+    private teacherWorksList: any[];
+    private teacherWorkSumm: number;
     //Справочники
-    private facultiesList: Faculty[];
+    private facultiesList: SelectItem[];
     private academicDegreeList: SelectItem[];
     private academicTitleList: SelectItem[];
     //Для работы логики страницы
@@ -66,7 +69,7 @@ export class TeacherPersonalCardComponent implements OnInit, OnDestroy{
             this.isCreateNew = true;
             this.facultyService.getAll().subscribe((response:Response) => {
                 let facultiesList = [];
-                facultiesList.push({label: null, value: null});
+                facultiesList.push({label: "", value: null});
                 if (response != null) {
                     let responseJson = response.json();
                     responseJson.forEach(function (item) {
@@ -112,6 +115,36 @@ export class TeacherPersonalCardComponent implements OnInit, OnDestroy{
                             this.userName = responseBody[0];
                             this.email = responseBody[1];
                         }
+                    });
+                    this.teacherService.getTeachersWorks(this.teacherId).subscribe((response:Response) => {
+                        let teachersWork2 = response.json();
+                        let finalList = [];
+                        let flag = true;
+                        teachersWork2.forEach(function (item, index) {
+                            let itemToPush = item;
+                            itemToPush.HoursWork = +itemToPush.HoursWork;
+                            itemToPush.TeachersTypesWork.PercentLoad = +itemToPush.TeachersTypesWork.PercentLoad;
+                            flag = true;
+                            finalList.forEach(function (item2) {
+                                if (item.TeachersTypesWork.Name === item2.TeachersTypesWork.Name) {
+                                    flag = false;
+                                }
+                            });
+                            if (flag && index + 1 != teachersWork2.length) { //тут возможна ошибка
+                                for(let i = index + 1; i < teachersWork2.length; i++){
+                                    if (item.TeachersTypesWork.Name === teachersWork2[i].TeachersTypesWork.Name) {
+                                        itemToPush.HoursWork += +teachersWork2[i].HoursWork;
+                                    }
+                                }
+                                finalList.push(itemToPush);
+                            }
+                        });
+                        let finalSumm = 0;
+                        finalList.forEach(function (item) {
+                            finalSumm += item.HoursWork * item.TeachersTypesWork.PercentLoad;
+                        });
+                        this.teacherWorkSumm = finalSumm;
+                        this.teacherWorksList = finalList;
                     });
 
                     // let last_gritter;
@@ -194,6 +227,24 @@ export class TeacherPersonalCardComponent implements OnInit, OnDestroy{
                 }
             });
         }
+
+        this.dataWorkVolumeChart = {
+            labels: ['Лекции','Практические','Лабораторные'],
+            datasets: [
+                {
+                    data: [300, 50, 100],
+                    backgroundColor: [
+                        "#FF6384",
+                        "#36A2EB",
+                        "#FFCE56"
+                    ],
+                    hoverBackgroundColor: [
+                        "#FF6384",
+                        "#36A2EB",
+                        "#FFCE56"
+                    ]
+                }]
+        };
     }
 
     saveChanges(){
@@ -212,54 +263,6 @@ export class TeacherPersonalCardComponent implements OnInit, OnDestroy{
             }
         });
     }
-    // changeEmail(){
-    //     this.userService.isLoginAndEmailFree(null, this.email).subscribe((response:Response) =>
-    //     {
-    //         if(response.json()[1]) {
-    //             this.userService.changeEmail(this.userName, this.email).subscribe((response: Response) => {
-    //                 if (response.status === 200) {
-    //                     $.gritter.add({
-    //                         title: 'Сохранение завершено',
-    //                         text: 'Ваш email успешно изменен',
-    //                         class_name: 'gritter-success'
-    //                     });
-    //                 }
-    //             });
-    //         }
-    //     });
-    // }
-    // changeLogin(){
-    //     this.userService.isLoginAndEmailFree(this.userName, null).subscribe((response:Response) =>
-    //     {
-    //         if(response.json()[0]) {
-    //             this.userService.changeLogin(this.email, this.userName).subscribe((response: Response) => {
-    //                 if (response.status === 200) {
-    //                     $.gritter.add({
-    //                         title: 'Сохранение завершено',
-    //                         text: 'Ваш логин успешно изменен',
-    //                         class_name: 'gritter-success'
-    //                     });
-    //                 }
-    //             });
-    //         }
-    //     });
-    // }
-    // changePassword(){
-    //     if(this.newPassword === this.newPasswordRepeat) {
-    //         this.isPasswordsSame = false;
-    //         this.userService.changePassword(this.userName, this.newPassword).subscribe((response: Response) => {
-    //             if(response.status === 200) {
-    //                 $.gritter.add({
-    //                     title: 'Сохранение завершено',
-    //                     text: 'Ваш пароль успешно изменен',
-    //                     class_name: 'gritter-success'
-    //                 });
-    //             }
-    //         });
-    //     }else{
-    //         this.isPasswordsSame = true;
-    //     }
-    // }
 
     createNew(){
         this.teacher.TeacherId = this.guidService.createGuid();

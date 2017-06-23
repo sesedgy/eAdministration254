@@ -39,7 +39,7 @@
                 </p-column>
                 <p-column field="Faculty.Name" header="Факультет" [filter]="true" [style]="{'overflow':'visible'}" filterMatchMode="equals">
                     <ng-template pTemplate="filter" let-col>
-                        <p-dropdown [options]="facultiesList" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" styleClass="ui-column-filter"></p-dropdown>
+                        <p-dropdown [options]="facultiesList" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)" filter="filter" styleClass="ui-column-filter"></p-dropdown>
                     </ng-template>
                 </p-column>
                 <p-column field="MobilePhone" header="Телефон" [filter]="true" [style]="{'overflow':'visible'}" filterMatchMode="equals"></p-column>
@@ -81,7 +81,7 @@
                         <div class="form-group">
                             <label for="workVolumeDoc">Объемы учебной работы для группы</label>
                             <div>
-                                <input type="file" id="workVolumeDoc" class="col-xs-12 uploadData" [(ngModel)]="workVolumeDoc"/>
+                                <input type="file" id="workVolumeDoc" accept=".xls,.xlsx" class="col-xs-12 uploadData" (change)='workVolumeDocUpload($event)'/>
                             </div>
                         </div>
                     </div>
@@ -89,7 +89,7 @@
                         <div class="form-group">
                             <label for="groupTeacherDoc">Распределение преподавателей по группам</label>
                             <div>
-                                <input type="file" id="groupTeacherDoc" class="col-xs-12 uploadData" [(ngModel)]="groupTeacherDoc"/>
+                                <input type="file" id="groupTeacherDoc" accept=".xls,.xlsx" class="col-xs-12 uploadData" (change)="groupTeacherDocUpload($event)"/>
                             </div>
                         </div>
                     </div>

@@ -1,12 +1,12 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ViewChild} from "@angular/core";
 import {Response} from "@angular/http";
 import {SelectItem} from "primeng/components/common/api";
-import {DepartmentService} from "../../services/api/department.service";
 import {Router} from "@angular/router";
 import {TeacherService} from "../../services/api/teacher.service";
 import {Teacher} from "../../models/teacher";
 import {FacultyService} from "../../services/api/faculty.service";
-import {FileUploadModule} from 'primeng/primeng';
+import {FileUploader} from "ng2-file-upload";
+import {CookieService} from "../../services/cookie.service";
 declare let $:any;
 
 @Component({
@@ -19,18 +19,22 @@ export class TeachersListComponent implements OnInit{
 
     constructor(private teacherService: TeacherService,
                 private facultyService: FacultyService,
+                private cookieService: CookieService,
                 private router: Router){}
 
     private teachersList: Teacher[];
     private facultiesList: SelectItem[];
     private academicDegreeList: SelectItem[];
     private academicTitleList: SelectItem[];
-    private workVolumeDoc: SelectItem[];
-    private groupTeacherDoc: SelectItem[];
+    private uploader: FileUploader;
+    private workVolumeDoc: File;
+    private groupTeacherDoc: File;
     private rowCount: number;
 
 
     ngOnInit(){
+        this.uploader = new FileUploader({url: "http://localhost:53753/api/teachers/uploadWorkVolume/", authToken: this.cookieService.getTokenId(), disableMultipart: true});
+        this.uploader.onAfterAddingFile = (file)=> { file.withCredentials = false; };
         this.teacherService.getAll().subscribe((response:Response) => {
             if(response != null) {
                 this.teachersList = response.json();
@@ -57,9 +61,13 @@ export class TeachersListComponent implements OnInit{
             btn_change:'Изменить',
             droppable:false,
             onchange:null,
-            thumbnail:false,
-            allowExt: ['xls', 'xlsx'],
+            thumbnail:false
         });
+
+        $('#uploader').on('change', function(e){
+            let file = this.files[0];
+            console.log(file);
+        })
     }
 
     addRow(){
@@ -70,12 +78,80 @@ export class TeachersListComponent implements OnInit{
         $("#modalWindowImport").modal('show');
     }
 
-    importWorkVolume(){
-
+    workVolumeDocUpload(event){
+        let fileList: FileList = event.target.files;
+        if(fileList.length > 0) {
+            this.workVolumeDoc = fileList[0];
+        }
     }
+
+    groupTeacherDocUpload(event){
+        let fileList: FileList = event.target.files;
+        if(fileList.length > 0) {
+            this.groupTeacherDoc = fileList[0];
+        }
+    }
+
+    importWorkVolume(){
+        let files = new FormData();
+        // files.append("uploads[]", this.workVolumeDoc, this.workVolumeDoc.name);
+        files.append("files", this.workVolumeDoc);
+        files.append("files", this.groupTeacherDoc);
+        console.log(this.workVolumeDoc);
+        // files.append("files", this.groupTeacherDoc, this.groupTeacherDoc.name);
+        // this.teacherService.uploadWorkVolume(files).subscribe(() => {
+        this.teacherService.uploadWorkVolume(files).subscribe(() => {
+            $.gritter.add({
+                title: 'Сохранение завершено',
+                text: 'Данные успешно удалены',
+                class_name: 'gritter-success'
+            });
+        });
+    }
+
+    // importWorkVolume(){
+    //     let token = this.cookieService.getTokenId();
+    //     let file = new FormData();
+    //     file.append("file", this.workVolumeDoc);
+    //
+    //
+    //     var xhr = new XMLHttpRequest();
+    //     xhr.open("POST", "http://localhost:53753/api/teachers/uploadWorkVolume");
+    //     // xhr.setRequestHeader('Content-Type', 'application/vnd.ms-excel');
+    //
+    //     xhr.onreadystatechange = function() {
+    //     };
+    //
+    //     xhr.send(file);
+    //     // $.post({
+    //     //     url: "http://localhost:53753/api/teachers/uploadWorkVolume",
+    //     //     method: "POST",
+    //     //     data: file,
+    //     //     beforeSend: function (xhr) {
+    //     //         xhr.setRequestHeader('Authorization', token);
+    //     //     }
+    //     // }).done(function(){
+    //     //     alert('PUK');
+    //     // });
+    //     // let files = new FormData();
+    //     // // files.append("uploads[]", this.workVolumeDoc, this.workVolumeDoc.name);
+    //     // files.append("file", this.workVolumeDoc, this.workVolumeDoc.name);
+    //     // console.log(this.workVolumeDoc);
+    //     // // files.append("files", this.groupTeacherDoc, this.groupTeacherDoc.name);
+    //     // // this.teacherService.uploadWorkVolume(files).subscribe(() => {
+    //     // this.teacherService.uploadWorkVolume(this.workVolumeDoc).subscribe(() => {
+    //     //     $.gritter.add({
+    //     //         title: 'Сохранение завершено',
+    //     //         text: 'Данные успешно удалены',
+    //     //         class_name: 'gritter-success'
+    //     //     });
+    //     // });
+    // }
 
 
     handleFilter(dataTable){
         this.rowCount = dataTable.totalRecords;
     }
+
+
 }

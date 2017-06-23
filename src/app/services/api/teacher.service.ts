@@ -34,6 +34,18 @@ export class TeacherService{
 
     uploadPhoto(uploadFile: any, id: string) {
         let object = [uploadFile, id];
-        return this.httpService.post('teachers/uploadPhoto/', object, this.cookieService.createAuthorizationHeader());
+        return this.httpService.postFile('teachers/uploadPhoto/', object, this.cookieService.createAuthorizationHeader());
     }
+
+    uploadWorkVolume(file) {
+        return this.httpService.postFile('teachers/uploadWorkVolume', file, this.cookieService.createAuthorizationHeader());
+    }
+
+    /////TeachersWorks
+
+    getTeachersWorks(id: string) {
+        return this.httpService.get('teachers/getTeachersWorks/' + id, this.cookieService.createAuthorizationHeader());
+    }
+
+
 }

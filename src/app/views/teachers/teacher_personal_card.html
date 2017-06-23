@@ -71,9 +71,9 @@
                             Рабочая информация
                         </a>
                     </li>
-                    <li>
+                    <li [ngStyle]="isCreateNew ? {'visibility':'hidden'} : {}">
                         <a data-toggle="tab" href="#load">
-                            <i class="ace-icon fa fa-balance-scale bigger-120"></i>
+                            <i class="ace-icon fa fa-balance-scale bigger-120 blue"></i>
                             Нагрузка
                         </a>
                     </li>
@@ -439,7 +439,7 @@
                                     <label for="faculty">Факультет</label>
                                     <div [ngStyle]="{'border': (faculty.valid && !(isCreateNew && faculty.valid && faculty.pristine))? '':'1px solid red'}">
                                         <p-dropdown id="faculty" [options]="facultiesList" [style]="{'width': '100%'}" [(ngModel)]="teacher.Faculty"
-                                                    [filter]="filter" #faculty="ngModel"  [required]="true"></p-dropdown>
+                                                    filter="filter" #faculty="ngModel"  [required]="true"></p-dropdown>
                                     </div>
                                 </div>
                             </div>
@@ -485,10 +485,70 @@
                     <div id="load" class="tab-pane fade">
                         <div class="row">
                             <div class="col-xs-12">
-                                <h4 class="header blue bolder smaller">Нагрузка преподавателя</h4>
+                                <div class="widget-box transparent">
+                                    <div class="widget-header widget-header-flat">
+                                        <h4 class="widget-title blue bolder smaller">
+                                            <i class="ace-icon fa fa-clock-o orange"></i>
+                                            Аудиторные занятия (в часах)
+                                        </h4>
+                                        <!--<h4 class="widget-title lighter">-->
+                                            <!--<i class="ace-icon fa fa-clock-o orange"></i>-->
+                                            <!--Аудиторные занятия (в часах)-->
+                                        <!--</h4>-->
+
+                                        <div class="widget-toolbar">
+                                            <a href="#" data-action="collapse">
+                                                <i class="ace-icon fa fa-chevron-up"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="widget-body">
+                                        <div class="widget-main no-padding">
+                                            <div class="col-xs-4">
+                                                <p-chart type="pie" [data]="dataWorkVolumeChart"></p-chart>
+                                            </div>
+                                            <div class="col-xs-8">
+                                                <table class="table table-bordered table-striped table-hover">
+                                                    <thead class="thin-border-bottom">
+                                                    <tr>
+                                                        <th width="60%">
+                                                            Наименование
+                                                        </th>
+                                                        <th width="14%">
+                                                            Кол-во часов
+                                                        </th>
+                                                        <th width="8%">
+                                                            Коэффициент
+                                                        </th>
+                                                        <th width="8%">
+                                                            <i class="ace-icon fa fa-caret-right blue"></i> Итого
+                                                        </th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tfoot style="background: #75ABD7">
+                                                    <tr>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td><b>Всего:</b></td>
+                                                        <td align="center"><b>{{teacherWorkSumm}}</b></td>
+                                                    </tr>
+                                                    </tfoot>
+
+                                                    <tbody>
+                                                    <tr *ngFor="let work of teacherWorksList">
+                                                        <td>{{work.TeachersTypesWork.Name}}</td>
+                                                        <td align="center">{{work.HoursWork}}</td>
+                                                        <td align="center">{{work.TeachersTypesWork.PercentLoad}}</td>
+                                                        <td align="center">{{work.HoursWork * (work.TeachersTypesWork.PercentLoad * 100) / 100}}</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div><!-- /.widget-main -->
+                                    </div><!-- /.widget-body -->
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
                         </div>
                     </div>
                 </div>

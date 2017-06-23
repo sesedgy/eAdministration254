@@ -39,8 +39,21 @@ export class HttpService{
      */
     post(urlApi, object, requestOptions){
         const body = JSON.stringify(object);
-        requestOptions.headers.append('Content-Type', 'application/json;charset=utf-8');
+        requestOptions.headers.append('Content-Type', 'application/json;charset=utf-8;');
         return this.http.post(this.urlServer + urlApi, body, requestOptions)
+            .catch((err: any) => {
+                if (err.status === 401)
+                {
+                    window.location.replace('/Login');
+                }
+                this.error(err); return null;
+        });
+    }
+
+    postFile(urlApi, object, requestOptions){
+        // // requestOptions.headers.append('Content-Type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+        // requestOptions.headers.append('Accept', 'application/vnd.ms-excel');
+        return this.http.post(this.urlServer + urlApi, object, requestOptions)
             .catch((err: any) => {
                 if (err.status === 401)
                 {

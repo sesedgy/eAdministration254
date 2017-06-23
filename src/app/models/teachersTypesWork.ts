@@ -4,7 +4,7 @@ export class TeachersTypesWork{
 
     public TeachersTypesWorkId: string;
     public Name: string;
-    public PercentLoad: string;
+    public PercentLoad: number;
     public TeachersWorks: TeachersWork[];
 
     public WhoUpdate: string;

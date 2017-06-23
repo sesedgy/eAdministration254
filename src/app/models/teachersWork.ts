@@ -6,7 +6,7 @@ export class TeachersWork{
 
     public TeachersWorkId: string;
     public Teacher: Teacher;
-    public TeachersTypesWork: TeachersTypesWork[];
+    public TeachersTypesWork: TeachersTypesWork;
     public Group: Group;
     public Curs: string;
     public Semester: Date;

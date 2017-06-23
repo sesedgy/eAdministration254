@@ -36,6 +36,7 @@ import {DepartmentsListComponent} from "./components/settings/departmentsList.co
 import {TeacherService} from "./services/api/teacher.service";
 import {TeachersListComponent} from "./components/teachers/teacherList";
 import {TeacherPersonalCardComponent} from "./components/teachers/teacherPersonalCard";
+import {ChartModule} from "primeng/primeng";
 
 //Маршруты
 const settingsRoutes: Routes =[
@@ -76,7 +77,7 @@ const appRoutes: Routes =[
         RouterModule.forRoot(appRoutes),
         HttpModule,
         BrowserAnimationsModule,
-        DataTableModule,InputTextModule,ButtonModule,DropdownModule],
+        DataTableModule,InputTextModule,ButtonModule,DropdownModule,ChartModule],
     declarations: [
         AppComponent,
         MainComponent,
