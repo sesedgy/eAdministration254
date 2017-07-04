@@ -14,3 +14,25 @@
 *::-webkit-scrollbar-track{
     background:rgba(255,255,255,0.08);
 }
+
+/*For fileUpload*/
+.ace-file-input .ace-file-container .ace-file-Name{
+    display: inline-block;
+    height: 28px;
+    max-width: 80%;
+    white-space: nowrap;
+    overflow: hidden;
+    line-height: 28px;
+    color: #888;
+    font-size: 13px;
+    vertical-align: top;
+    position: static;
+    padding-left: 30px;
+}
+.ace-file-input .ace-file-container.selected .ace-file-Name {
+    color: #666;
+}
+.ace-file-input .ace-file-container .ace-file-Name:after {
+    display: inline-block;
+    content: attr(data-title);
+}

@@ -11,6 +11,9 @@ import {TeacherService} from "../../services/api/teacher.service";
 import {Faculty} from "../../models/faculty";
 import {FacultyService} from "../../services/api/faculty.service";
 import {SelectItem} from "primeng/components/common/api";
+import {unescape} from "querystring";
+import {FileService} from "../../services/api/file.service";
+import {NotifyService} from "../../services/notify.service";
 declare let $: any;
 
 @Component({
@@ -46,6 +49,8 @@ export class TeacherPersonalCardComponent implements OnInit, OnDestroy{
     constructor(private userService: UserService,
                 private teacherService: TeacherService,
                 private facultyService: FacultyService,
+                private fileService: FileService,
+                private notifyService: NotifyService,
                 private cookieService: CookieService,
                 private guidService: GuidService,
                 private activatedRoute: ActivatedRoute,
@@ -65,6 +70,12 @@ export class TeacherPersonalCardComponent implements OnInit, OnDestroy{
         this.academicTitleList = [{label: "", value: null}, {label: 'Доцент', value: 'Доцент'}, {label: 'Профессор', value: 'Профессор'}];
         $('.input-mask-phone').mask('+7(999)999-99-99');
 
+        $.fn.editable.defaults.mode = 'inline';
+        $.fn.editableform.loading = "<div class='editableform-loading'><i class='ace-icon fa fa-spinner fa-spin fa-2x light-blue'></i></div>";
+        $.fn.editableform.buttons = '<button type="submit" class="btn btn-info editable-submit"><i class="ace-icon fa fa-check"></i></button>'+
+            '<button type="button" class="btn editable-cancel"><i class="ace-icon fa fa-times"></i></button>';
+
+
         if(this.teacherId === 'new'){
             this.isCreateNew = true;
             this.facultyService.getAll().subscribe((response:Response) => {
@@ -79,6 +90,7 @@ export class TeacherPersonalCardComponent implements OnInit, OnDestroy{
                 this.facultiesList = facultiesList;
             });
         }else {
+            this.notifyService.showLoading();
             this.teacherService.get(this.teacherId).subscribe((response:Response) => {
                 if (response != null) {
                     this.teacher = response.json();
@@ -86,10 +98,26 @@ export class TeacherPersonalCardComponent implements OnInit, OnDestroy{
                     if(this.teacher.MiddleName != null){
                         this.name = this.name + this.teacher.MiddleName.substring(0, 1) + ".";
                     }
-                    this.photoSrc = this.teacher.PhotoPath;
                     let teacherFaculty = this.teacher.Faculty;
                     let newTeacherFaculty = null;
 
+                    if(this.teacher.PhotoPath !== null || this.teacher.PhotoPath !== undefined) {
+                        this.fileService.getImage(this.teacher.PhotoPath).subscribe((response: Response) => {
+                            let fileType = "";
+                            switch (this.teacher.PhotoPath.substring(this.teacher.PhotoPath.length - 3)) {
+                                case "jpg":
+                                    fileType = "data:image/jpeg;base64,";
+                                    break;
+                                case "png":
+                                    fileType = "data:image/png;base64,";
+                                    break;
+                                case "gif":
+                                    fileType = "data:image/gif;base64,";
+                                    break;
+                            }
+                            this.photoSrc = fileType + response.text();
+                        });
+                    }
                     this.facultyService.getAll().subscribe((response:Response) => {
                         let facultiesList = [];
                         this.facultiesList = facultiesList;
@@ -108,7 +136,6 @@ export class TeacherPersonalCardComponent implements OnInit, OnDestroy{
                         this.facultiesList = facultiesList;
                         this.teacher.Faculty = newTeacherFaculty;
                     });
-
                     this.userService.getUserInfo(this.teacher.User.Login).subscribe((response: Response) => {
                         if (response != null) {
                             let responseBody = response.json();
@@ -145,106 +172,86 @@ export class TeacherPersonalCardComponent implements OnInit, OnDestroy{
                         });
                         this.teacherWorkSumm = finalSumm;
                         this.teacherWorksList = finalList;
+                        this.notifyService.stopShowLoading();
                     });
-
-                    // let last_gritter;
-                    // $('#avatar').editable({
-                    //     type: 'image',
-                    //     name: 'avatar',
-                    //     value: null,
-                    //     //onblur: 'ignore',  //don't reset or hide editable onblur?!
-                    //     image: {
-                    //         //specify ace file input plugin's options here
-                    //         btn_choose: 'Change Avatar',
-                    //         droppable: true,
-                    //         maxSize: 110000,//~100Kb
-                    //
-                    //         //and a few extra ones here
-                    //         name: 'avatar',//put the field name here as well, will be used inside the custom plugin
-                    //         on_error : function(error_type) {//on_error function will be called when the selected file has a problem
-                    //             if(last_gritter) $.gritter.remove(last_gritter);
-                    //             if(error_type == 1) {//file format error
-                    //                 last_gritter = $.gritter.add({
-                    //                     title: 'File is not an image!',
-                    //                     text: 'Please choose a jpg|gif|png image!',
-                    //                     class_name: 'gritter-error gritter-center'
-                    //                 });
-                    //             } else if(error_type == 2) {//file size rror
-                    //                 last_gritter = $.gritter.add({
-                    //                     title: 'File too big!',
-                    //                     text: 'Image size should not exceed 100Kb!',
-                    //                     class_name: 'gritter-error gritter-center'
-                    //                 });
-                    //             }
-                    //             else {//other error
-                    //             }
-                    //         },
-                    //         on_success : function() {
-                    //             $.gritter.removeAll();
-                    //         }
-                    //     },
-                    //     url: function(params) {
-                    //         // ***UPDATE AVATAR HERE*** //
-                    //         //for a working upload example you can replace the contents of this function with
-                    //         //examples/profile-avatar-update.js
-                    //
-                    //         var deferred = new $.Deferred
-                    //
-                    //         var value = $('#avatar').next().find('input[type=hidden]:eq(0)').val();
-                    //         if(!value || value.length == 0) {
-                    //             deferred.resolve();
-                    //             return deferred.promise();
-                    //         }
-                    //
-                    //
-                    //         //dummy upload
-                    //         setTimeout(function(){
-                    //             if("FileReader" in window) {
-                    //                 //for browsers that have a thumbnail of selected image
-                    //                 var thumb = $('#avatar').next().find('img').data('thumb');
-                    //                 if(thumb) $('#avatar').get(0).src = thumb;
-                    //             }
-                    //
-                    //             deferred.resolve({'status':'OK'});
-                    //
-                    //             if(last_gritter) $.gritter.remove(last_gritter);
-                    //             last_gritter = $.gritter.add({
-                    //                 title: 'Avatar Updated!',
-                    //                 text: 'Uploading to server can be easily implemented. A working example is included with the template.',
-                    //                 class_name: 'gritter-info gritter-center'
-                    //             });
-                    //
-                    //         } , parseInt(Math.random() * 800 + 800))
-                    //
-                    //         return deferred.promise();
-                    //
-                    //         // ***END OF UPDATE AVATAR HERE*** //
-                    //     },
-                    //
-                    //     success: function(response, newValue) {
-                    //     }
-                    // })
                 }
             });
         }
 
-        this.dataWorkVolumeChart = {
-            labels: ['Лекции','Практические','Лабораторные'],
-            datasets: [
-                {
-                    data: [300, 50, 100],
-                    backgroundColor: [
-                        "#FF6384",
-                        "#36A2EB",
-                        "#FFCE56"
-                    ],
-                    hoverBackgroundColor: [
-                        "#FF6384",
-                        "#36A2EB",
-                        "#FFCE56"
-                    ]
-                }]
-        };
+        //PHOTO
+
+        let thisClass = this;
+        let last_gritter;
+        $('#avatar').editable({
+            type: 'image',
+            name: 'avatar',
+            value: null,
+            //onblur: 'ignore',  //don't reset or hide editable onblur?!
+            image: {
+                //specify ace file input plugin's options here
+                btn_choose: 'Изменить фото',
+                droppable: false,
+                maxSize: 110000,//~100Kb
+
+                //and a few extra ones here
+                name: 'avatar',//put the field name here as well, will be used inside the custom plugin
+                on_error : function(error_type) {//on_error function will be called when the selected file has a problem
+                    if(last_gritter) $.gritter.remove(last_gritter);
+                    if(error_type == 1) {//file format error
+                        last_gritter = $.gritter.add({
+                            title: 'Файл не является изображением',
+                            text: 'Пожалуйста выберите jpg|gif|png файл!',
+                            class_name: 'gritter-error gritter-center'
+                        });
+                    } else if(error_type == 2) {//file size error
+                        last_gritter = $.gritter.add({
+                            title: 'Файл слишком большой!',
+                            text: 'Размер изображения не должен превышать 100Kb',
+                            class_name: 'gritter-error gritter-center'
+                        });
+                    }
+                    else {//other error
+                    }
+                },
+                on_success : function() {
+                    $.gritter.removeAll();
+                }
+            },
+            url: function() {
+                //get base64
+                let thumb = $('#avatar').next().find('img').data('thumb');
+
+                //Convert base64 to image
+                let byteString;
+                if (thumb.split(',')[0].indexOf('base64') >= 0)
+                    byteString = atob(thumb.split(',')[1]);
+                else
+                    byteString = unescape(thumb.split(',')[1]);
+                var mimeString = thumb.split(',')[0].split(':')[1].split(';')[0];
+                var ia = new Uint8Array(byteString.length);
+                for (var i = 0; i < byteString.length; i++) {
+                    ia[i] = byteString.charCodeAt(i);
+                }
+                let blob = new Blob([ia], {type:mimeString});
+
+                //Create file
+                let file = new File([blob], thisClass.teacherId + ".png");
+
+                let formData = new FormData();
+                formData.append("file", file);
+                thisClass.teacherService.uploadPhoto(formData).subscribe(() => {
+                    $.gritter.add({
+                        title: 'Фотография загружена',
+                        text: 'Данные успешно сохранены',
+                        class_name: 'gritter-success'
+                    });
+                });
+
+                if(thumb) $('#avatar').get(0).src = thumb;
+
+                // ***END OF UPDATE AVATAR HERE*** //
+            }
+        });
     }
 
     saveChanges(){

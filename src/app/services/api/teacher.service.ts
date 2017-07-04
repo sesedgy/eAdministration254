@@ -32,9 +32,8 @@ export class TeacherService{
         return this.httpService.get('teachers/delete/' + id + '&' + userId, this.cookieService.createAuthorizationHeader());
     }
 
-    uploadPhoto(uploadFile: any, id: string) {
-        let object = [uploadFile, id];
-        return this.httpService.postFile('teachers/uploadPhoto/', object, this.cookieService.createAuthorizationHeader());
+    uploadPhoto(file) {
+        return this.httpService.postFile('teachers/uploadPhoto/', file, this.cookieService.createAuthorizationHeader());
     }
 
     uploadWorkVolume(file) {

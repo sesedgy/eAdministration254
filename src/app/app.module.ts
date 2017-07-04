@@ -37,6 +37,8 @@ import {TeacherService} from "./services/api/teacher.service";
 import {TeachersListComponent} from "./components/teachers/teacherList";
 import {TeacherPersonalCardComponent} from "./components/teachers/teacherPersonalCard";
 import {ChartModule} from "primeng/primeng";
+import {FileService} from "./services/api/file.service";
+import {NotifyService} from "./services/notify.service";
 
 //Маршруты
 const settingsRoutes: Routes =[
@@ -107,7 +109,9 @@ const appRoutes: Routes =[
         FacultyService,
         EmployeeService,
         DepartmentService,
-        TeacherService
+        TeacherService,
+        FileService,
+        NotifyService
     ],
     bootstrap: [ AppComponent ]
 })

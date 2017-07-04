@@ -32,6 +32,7 @@
 
         "assets/css/jquery-ui.custom.min.css",
         "assets/css/chosen.min.css",
+        "assets/css/bootstrap-editable.min.css",
 
         "assets/css/ace.min.css",
         "assets/css/ace-skins.min.css",
@@ -51,21 +52,18 @@
         "assets/scripts/jquery.knob.min.js",
         "assets/scripts/jquery.inputlimiter.min.js",
         "assets/scripts/bootstrap-tag.min.js",
-
-
+        "assets/scripts/bootstrap-editable.min.js",
+        "assets/scripts/ace-editable.min.js",
 
         "assets/scripts/ace-extra.min.js",
         "assets/scripts/ace-elements.min.js",
         "assets/scripts/ace.min.js",
 
         "../node_modules/gritter/js/jquery.gritter.min.js",
-
         "../node_modules/jquery.maskedinput/src/jquery.maskedinput.js",
+        "../node_modules/chart.js/dist/Chart.js",
 
-        "../node_modules/chart.js/dist/Chart.js"
-
-
-
+        "../node_modules/gasparesganga-jquery-loading-overlay/src/loadingoverlay.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

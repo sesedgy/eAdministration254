@@ -97,7 +97,6 @@ export class TeachersListComponent implements OnInit{
         // files.append("uploads[]", this.workVolumeDoc, this.workVolumeDoc.name);
         files.append("files", this.workVolumeDoc);
         files.append("files", this.groupTeacherDoc);
-        console.log(this.workVolumeDoc);
         // files.append("files", this.groupTeacherDoc, this.groupTeacherDoc.name);
         // this.teacherService.uploadWorkVolume(files).subscribe(() => {
         this.teacherService.uploadWorkVolume(files).subscribe(() => {

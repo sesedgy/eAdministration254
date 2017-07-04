@@ -3,12 +3,14 @@ import {Http, Response} from '@angular/http';
 import {AppSettings} from "../appSettings";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import {NotifyService} from "./notify.service";
 declare let $:any;
 
 @Injectable()
 export class HttpService{
 
-    constructor(private http: Http){ }
+    constructor(private http: Http,
+                private notifyService: NotifyService){ }
     urlServer: string = AppSettings.API_SRC;
 
     /**
@@ -69,5 +71,8 @@ export class HttpService{
             text: error,
             class_name: 'gritter-error'
         });
+        if(this.notifyService.getSwitchOn()){
+            this.notifyService.stopShowLoading();
+        }
     }
 }
